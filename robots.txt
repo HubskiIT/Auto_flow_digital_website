@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hubskiit.github.io/Auto_flow_digital_website/sitemap.xml
