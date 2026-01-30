@@ -63,3 +63,36 @@ export const generateCaptionDraft = async (idea: string, platform: string) => {
         return "Failed to generate caption.";
     }
 };
+
+export const generatePlatformVariations = async (topic: string, researchContext: string) => {
+    try {
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+        const prompt = `
+        ${BRAND_SYSTEM_PROMPT}
+
+        CORE TOPIC: ${topic}
+        RESEARCH CONTEXT (Real Data):
+        ${researchContext}
+
+        TASK: Based on the research, create 4 distinct social media posts optimized for viral reach.
+        
+        1. LINKEDIN: Professional, "Thought Leadership", structured with bullet points.
+        2. INSTAGRAM: Visual hook description + Caption with high emoji usage.
+        3. TIKTOK: Video Script (Hook -> Value -> CTA).
+        4. FACEBOOK: Engaging, community-focused question or story.
+
+        Return strictly a JSON object with keys: "linkedin", "instagram", "tiktok", "facebook".
+        Each value should be an object with: "content" (string) and "hashtags" (array of strings).
+        `;
+
+        const result = await model.generateContent(prompt);
+        const text = result.response.text();
+        const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        return JSON.parse(cleanedText);
+
+    } catch (error) {
+        console.error("Variation Generation Error", error);
+        return null;
+    }
+};

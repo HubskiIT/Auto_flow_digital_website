@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CalendarLayout } from '@/src/components/Calendar/CalendarLayout';
 import { CalendarGrid } from '@/src/components/Calendar/CalendarGrid';
+import { ContentBank } from '@/src/components/Calendar/ContentBank';
 import { PostModal } from '@/src/components/Calendar/PostModal';
 import { Plus } from 'lucide-react';
 
@@ -34,6 +35,8 @@ export const CalendarPage: React.FC = () => {
 
                 <CalendarGrid />
 
+                <ContentBank />
+
                 <PostModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
@@ -43,4 +46,3 @@ export const CalendarPage: React.FC = () => {
         </CalendarLayout>
     );
 };
-

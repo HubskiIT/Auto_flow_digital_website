@@ -23,7 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
                     <a href="#process" className="nav-link" onClick={(e) => scrollToSection(e, 'process')}>Proces</a>
                     <a href="#reviews" className="nav-link" onClick={(e) => scrollToSection(e, 'reviews')}>Opinie</a>
                     <a href="#faq" className="nav-link" onClick={(e) => scrollToSection(e, 'faq')}>FAQ</a>
-                    import {Link} from 'react-router-dom';
+
 
                 // ... inside component
                 </div>
