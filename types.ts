@@ -11,11 +11,16 @@ export interface Artifact {
 }
 
 export interface Session {
-    id: string;
-    prompt: string;
-    timestamp: number;
-    artifacts: Artifact[];
+  id: string;
+  prompt: string;
+  timestamp: number;
+  artifacts: Artifact[];
 }
 
 export interface ComponentVariation { name: string; html: string; }
 export interface LayoutOption { name: string; css: string; previewHtml: string; }
+
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
