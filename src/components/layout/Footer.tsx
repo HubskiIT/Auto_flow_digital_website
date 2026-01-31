@@ -1,15 +1,21 @@
 import React from 'react';
-import { InstagramIcon, FacebookIcon, LinkedinIcon } from '../common/Icons';
+import { InstagramIcon, FacebookIcon, LinkedinIcon, MailIcon } from '../common/Icons';
 
 const Footer = () => {
     return (
         <footer className="site-footer">
             <div className="container">
                 <div className="footer-content">
-                    <div className="footer-brand"><h3>AUTO FLOW <span style={{ color: '#06b6d4' }}>DIGITAL</span></h3><p>Twój partner w cyfrowej transformacji. Automatyzujemy nudę, abyś Ty mógł zająć się biznesem.</p></div>
+                    <div className="footer-brand">
+                        <h3>AUTO FLOW <span style={{ color: '#06b6d4' }}>DIGITAL</span></h3>
+                        <p>Twój partner w cyfrowej transformacji. Automatyzujemy nudę, abyś Ty mógł zająć się biznesem.</p>
+                        <a href="mailto:contact@autoflowdigital.pl" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#a1a1aa', marginTop: '16px', textDecoration: 'none' }}>
+                            <MailIcon /> contact@autoflowdigital.pl
+                        </a>
+                    </div>
                     <div className="footer-col"><h4>Nawigacja</h4><div className="footer-links"><a href="#problem" className="footer-link">Problem</a><a href="#mission" className="footer-link">Misja</a><a href="#arsenal" className="footer-link">Arsenał</a><a href="#solutions" className="footer-link">Rozwiązania</a><a href="#process" className="footer-link">Proces</a><a href="#reviews" className="footer-link">Opinie</a><a href="#faq" className="footer-link">FAQ</a><a href="#contact" className="footer-link">Kontakt</a></div></div>
                     <div className="footer-col"><h4>Prawne</h4><div className="footer-links"><a href="#" className="footer-link">Polityka Prywatności</a><a href="#" className="footer-link">Regulamin</a><a href="#" className="footer-link">RODO</a></div></div>
-                    <div className="footer-col"><h4>Social Media</h4><div className="social-links"><a href="#" className="social-icon" aria-label="Instagram"><InstagramIcon /></a><a href="#" className="social-icon" aria-label="Facebook"><FacebookIcon /></a><a href="#" className="social-icon" aria-label="LinkedIn"><LinkedinIcon /></a></div></div>
+                    <div className="footer-col"><h4>Social Media</h4><div className="social-links"><a href="https://www.instagram.com/autoflow_digital/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram"><InstagramIcon /></a><a href="#" className="social-icon" aria-label="Facebook"><FacebookIcon /></a><a href="#" className="social-icon" aria-label="LinkedIn"><LinkedinIcon /></a></div></div>
                 </div>
                 <div className="footer-bottom">
                     <div className="copyright">&copy; {new Date().getFullYear()} Auto Flow Digital. Wszelkie prawa zastrzeżone.</div>
