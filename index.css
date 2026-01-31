@@ -278,7 +278,7 @@ ul {
     /* Push to right on mobile */
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
     .mobile-menu-btn {
         display: none;
     }
@@ -1622,7 +1622,7 @@ ul {
     display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
     .desktop-menu {
         display: flex;
         gap: 24px;
