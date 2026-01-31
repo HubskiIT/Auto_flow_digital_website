@@ -1609,10 +1609,51 @@ ul {
     flex: 1;
 }
 
-.web-step-header {
-    font-family: var(--font-mono);
-    color: var(--accent-cyan);
-    font-size: 0.8rem;
-    margin-bottom: 12px;
-    opacity: 0.8;
+
+/* === Navbar Refinement === */
+.navbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.desktop-menu {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .desktop-menu {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+    }
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(2, 6, 23, 0.98);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    gap: 32px;
+    z-index: 99;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-link {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.mobile-nav-link:hover {
+    color: var(--text-primary);
 }

@@ -13,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container navbar-content">
-                <div className="logo">AUTO FLOW <span className="text-accent">DIGITAL</span></div>
+                <a href="#" className="logo" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>AUTO FLOW <span className="text-accent">DIGITAL</span></a>
                 <div className="desktop-menu">
                     <a href="#problem" className="nav-link" onClick={(e) => scrollToSection(e, 'problem')}>Problem</a>
                     <a href="#mission" className="nav-link" onClick={(e) => scrollToSection(e, 'mission')}>Misja</a>
@@ -24,17 +24,13 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
                     <a href="#reviews" className="nav-link" onClick={(e) => scrollToSection(e, 'reviews')}>Opinie</a>
                     <a href="#faq" className="nav-link" onClick={(e) => scrollToSection(e, 'faq')}>FAQ</a>
 
-
-                // ... inside component
                 </div>
                 <div className="flex items-center gap-4">
-                    <Link to="/calendar" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors hidden xl:block">
-                        App / Login
-                    </Link>
+
                     <a href="#contact" className="btn-cta primary desktop-cta" onClick={(e) => scrollToSection(e, 'contact')}>Darmowa Konsultacja</a>
                 </div>
 
-                <div className="mobile-menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                <div className="mobile-menu-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
                     {mobileMenuOpen ? <XIcon /> : <MenuIcon />}
                 </div>
             </div>
