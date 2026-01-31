@@ -1618,7 +1618,8 @@ ul {
     width: 100%;
 }
 
-.desktop-menu {
+.desktop-menu,
+.desktop-cta {
     display: none;
 }
 
@@ -1628,23 +1629,33 @@ ul {
         gap: 24px;
         align-items: center;
     }
+
+    .desktop-cta {
+        display: block;
+    }
 }
 
 .mobile-menu {
     position: fixed;
-    top: 80px;
+    top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(2, 6, 23, 0.98);
-    backdrop-filter: blur(20px);
+    width: 100vw;
+    height: 100vh;
+    background-color: #020617;
+    /* Solid background */
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 40px;
+    justify-content: center;
     gap: 32px;
-    z-index: 99;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 9999;
+    overflow-y: auto;
+}
+
+.mobile-menu-btn {
+    z-index: 10000;
+    /* Ensure button is above menu */
+    cursor: pointer;
 }
 
 .mobile-nav-link {

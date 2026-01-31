@@ -10,6 +10,17 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenuOpen, scrollToSection }) => {
+    React.useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [mobileMenuOpen]);
+
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container navbar-content">
