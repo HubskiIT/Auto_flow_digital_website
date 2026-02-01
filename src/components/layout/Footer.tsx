@@ -1,5 +1,5 @@
 import React from 'react';
-import { InstagramIcon, FacebookIcon, LinkedinIcon, MailIcon } from '../common/Icons';
+import { InstagramIcon, FacebookIcon, LinkedinIcon, MailIcon, TiktokIcon, YoutubeIcon } from '../common/Icons';
 
 const Footer = () => {
     return (
@@ -15,7 +15,16 @@ const Footer = () => {
                     </div>
                     <div className="footer-col"><h4>Nawigacja</h4><div className="footer-links"><a href="#problem" className="footer-link">Problem</a><a href="#mission" className="footer-link">Misja</a><a href="#arsenal" className="footer-link">Arsenał</a><a href="#solutions" className="footer-link">Rozwiązania</a><a href="#process" className="footer-link">Proces</a><a href="#reviews" className="footer-link">Opinie</a><a href="#faq" className="footer-link">FAQ</a><a href="#contact" className="footer-link">Kontakt</a></div></div>
                     <div className="footer-col"><h4>Prawne</h4><div className="footer-links"><a href="#" className="footer-link">Polityka Prywatności</a><a href="#" className="footer-link">Regulamin</a><a href="#" className="footer-link">RODO</a></div></div>
-                    <div className="footer-col"><h4>Social Media</h4><div className="social-links"><a href="https://www.instagram.com/autoflow_digital/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram"><InstagramIcon /></a><a href="#" className="social-icon" aria-label="Facebook"><FacebookIcon /></a><a href="#" className="social-icon" aria-label="LinkedIn"><LinkedinIcon /></a></div></div>
+                    <div className="footer-col">
+                        <h4>Social Media</h4>
+                        <div className="social-links" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                            <a href="https://www.linkedin.com/company/autoflowdigital" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn"><LinkedinIcon /></a>
+                            <a href="https://www.instagram.com/autoflowdigital" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram"><InstagramIcon /></a>
+                            <a href="#" className="social-icon" aria-label="Facebook"><FacebookIcon /></a>
+                            <a href="#" className="social-icon" aria-label="TikTok"><TiktokIcon /></a>
+                            <a href="#" className="social-icon" aria-label="YouTube"><YoutubeIcon /></a>
+                        </div>
+                    </div>
                 </div>
                 <div className="footer-bottom">
                     <div className="copyright">&copy; {new Date().getFullYear()} Auto Flow Digital. Wszelkie prawa zastrzeżone.</div>

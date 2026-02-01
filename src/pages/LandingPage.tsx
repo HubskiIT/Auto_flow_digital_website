@@ -19,7 +19,6 @@ import ContactSection from '@/src/components/sections/ContactSection';
 import Navbar from '@/src/components/layout/Navbar';
 import Footer from '@/src/components/layout/Footer';
 import ROICalculator from '@/src/components/tools/ROICalculator';
-import SocialHubSection from '@/src/components/sections/SocialHubSection';
 
 export const LandingPage: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -90,7 +89,6 @@ export const LandingPage: React.FC = () => {
             <CaseStudiesSection />
             <ReviewsSection />
             <FaqSection />
-            <SocialHubSection />
             <ContactSection />
             <Footer />
         </>

@@ -153,7 +153,7 @@ const ROICalculator = () => {
                                     <p className="text-sm mb-4">
                                         Koszt wdrożenia automatyzacji zwraca się średnio po <span className="text-accent font-bold">{roiMonths} mies.</span>
                                     </p>
-                                    <a href="#contact" className="btn-cta primary w-full justify-center text-center group">
+                                    <a href="#contact" className="btn-cta primary w-full justify-center text-center group flex items-center gap-2 !bg-accent !text-white hover:!bg-accent-hover transition-colors shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]">
                                         Zatrzymaj Straty – Umów Audyt
                                         <ArrowRightIcon />
                                     </a>
