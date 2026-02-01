@@ -33,6 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
                     <a href="#websites" className="nav-link" onClick={(e) => scrollToSection(e, 'websites')}>Strony WWW</a>
                     <a href="#process" className="nav-link" onClick={(e) => scrollToSection(e, 'process')}>Proces</a>
                     <a href="#reviews" className="nav-link" onClick={(e) => scrollToSection(e, 'reviews')}>Opinie</a>
+                    <a href="#audit" className="nav-link" style={{ color: '#06b6d4', fontWeight: 'bold' }} onClick={(e) => scrollToSection(e, 'audit')}>Audyt</a>
                     <a href="#faq" className="nav-link" onClick={(e) => scrollToSection(e, 'faq')}>FAQ</a>
 
                 </div>
@@ -56,6 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
                     <a href="#websites" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'websites'); setMobileMenuOpen(false); }}>Strony WWW</a>
                     <a href="#process" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'process'); setMobileMenuOpen(false); }}>Proces</a>
                     <a href="#reviews" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'reviews'); setMobileMenuOpen(false); }}>Opinie</a>
+                    <a href="#audit" className="mobile-nav-link" style={{ color: '#06b6d4' }} onClick={(e) => { scrollToSection(e, 'audit'); setMobileMenuOpen(false); }}>Audyt</a>
                     <a href="#faq" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'faq'); setMobileMenuOpen(false); }}>FAQ</a>
                     <a href="#contact" className="btn-cta primary" onClick={(e) => { scrollToSection(e, 'contact'); setMobileMenuOpen(false); }}>Darmowa Konsultacja</a>
                 </div>

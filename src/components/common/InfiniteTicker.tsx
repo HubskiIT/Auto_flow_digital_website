@@ -3,22 +3,16 @@ import React from 'react';
 const InfiniteTicker = () => (
     <div className="ticker-wrap">
         <div className="ticker">
-            <span className="ticker-item">FAKTUROWANIE</span>
-            <span className="ticker-item highlight">EMAILE</span>
-            <span className="ticker-item">OBSŁUGA KLIENTA</span>
-            <span className="ticker-item highlight">RAPORTY</span>
-            <span className="ticker-item">LEAD GENERATION</span>
-            <span className="ticker-item highlight">SOCIAL MEDIA</span>
-            <span className="ticker-item">ONBOARDING</span>
-            <span className="ticker-item highlight">ZAMÓWIENIA</span>
-            <span className="ticker-item">FAKTUROWANIE</span>
-            <span className="ticker-item highlight">EMAILE</span>
-            <span className="ticker-item">OBSŁUGA KLIENTA</span>
-            <span className="ticker-item highlight">RAPORTY</span>
-            <span className="ticker-item">LEAD GENERATION</span>
-            <span className="ticker-item highlight">SOCIAL MEDIA</span>
-            <span className="ticker-item">ONBOARDING</span>
-            <span className="ticker-item highlight">ZAMÓWIENIA</span>
+            <div className="ticker">
+                <span className="ticker-item">⚡ 1,205 ZADAŃ ZAUTOMATYZOWANYCH DZISIAJ</span>
+                <span className="ticker-item highlight">🕒 142h ZAOSZCZĘDZONE W TYM MIESIĄCU</span>
+                <span className="ticker-item">💰 +45% WZROSTU KONWERSJI</span>
+                <span className="ticker-item highlight">🤖 12 AKTYWNYCH AGENTÓW AI</span>
+                <span className="ticker-item">⚡ 1,205 ZADAŃ ZAUTOMATYZOWANYCH DZISIAJ</span>
+                <span className="ticker-item highlight">🕒 142h ZAOSZCZĘDZONE W TYM MIESIĄCU</span>
+                <span className="ticker-item">💰 +45% WZROSTU KONWERSJI</span>
+                <span className="ticker-item highlight">🤖 12 AKTYWNYCH AGENTÓW AI</span>
+            </div>
         </div>
     </div>
 );

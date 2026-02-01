@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import AuditSection from '@/src/components/sections/AuditSection';
 import DottedGlowBackground from '@/src/components/common/DottedGlowBackground';
 import ChatDemo from '@/src/components/features/ChatDemo';
 import ScrollReveal from '@/src/components/common/ScrollReveal';
@@ -18,6 +18,8 @@ import FaqSection from '@/src/components/sections/FaqSection';
 import ContactSection from '@/src/components/sections/ContactSection';
 import Navbar from '@/src/components/layout/Navbar';
 import Footer from '@/src/components/layout/Footer';
+import ROICalculator from '@/src/components/tools/ROICalculator';
+import SocialHubSection from '@/src/components/sections/SocialHubSection';
 
 export const LandingPage: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -58,9 +60,13 @@ export const LandingPage: React.FC = () => {
 
             <HeroSection scrollToContact={(e) => scrollToSection(e, 'contact')} />
 
+            <ROICalculator />
+
             <ProblemSection />
 
             <MissionSection />
+
+            <AuditSection />
 
             <section style={{ padding: '0 0 100px 0' }}><InfiniteTicker /></section>
 
@@ -84,6 +90,7 @@ export const LandingPage: React.FC = () => {
             <CaseStudiesSection />
             <ReviewsSection />
             <FaqSection />
+            <SocialHubSection />
             <ContactSection />
             <Footer />
         </>
