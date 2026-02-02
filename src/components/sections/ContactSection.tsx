@@ -248,7 +248,10 @@ const ContactSection = () => {
                                         <div className="selection-group"><span className="selection-label">Preferowane Dni:</span><div className="selection-options">{['Pon', 'Wt', 'Śr', 'Czw', 'Pt'].map(day => (<button key={day} type="button" className={`toggle-btn ${selectedDays.includes(day) ? 'selected' : ''}`} onClick={() => toggleDay(day)}>{day}</button>))}</div></div>
                                         <div className="selection-group"><span className="selection-label">Preferowane Godziny:</span><div className="selection-options">{['9:00 - 12:00', '12:00 - 15:00', '15:00 - 17:00'].map(time => (<button key={time} type="button" className={`toggle-btn ${selectedTimes.includes(time) ? 'selected' : ''}`} onClick={() => toggleTime(time)}>{time}</button>))}</div></div>
                                         <button type="submit" className="btn-cta primary" style={{ width: '100%', justifyContent: 'center', padding: '16px', fontSize: '1rem' }}>Wyślij Zgłoszenie <ArrowRightIcon /></button>
-                                        <p style={{ fontSize: '0.8rem', color: '#52525b', marginTop: '16px', textAlign: 'center' }}>100% spamu free. Twoje dane są bezpieczne.</p>
+                                        <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '16px', fontSize: '0.8rem', color: '#64748b' }}>
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> Zero spamu</span>
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg> Odpowiedź w 24h</span>
+                                        </div>
                                     </motion.form>
                                 )}
                             </AnimatePresence>

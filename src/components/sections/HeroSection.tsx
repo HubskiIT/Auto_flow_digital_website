@@ -8,8 +8,9 @@ const HeroSection = ({ scrollToContact }: { scrollToContact: (e: React.MouseEven
         <section className="hero">
 
             <div className="container hero-content">
-                <div className="hero-badge"><div className="hero-badge-dot"></div>AI AUTOMATION AGENCY 2.0</div>
-                <h1>Skaluj Biznes Bez Chaosu <br />dzięki <TextRotator words={["Automatyzacji AI", "Wirtualnym Agentom", "Inteligentnym Procesom", "Technologii No-Code"]} interval={3000} /></h1>
+                <div className="hero-badge"><div className="hero-badge-dot"></div>AGENCJA AUTOMATYZACJI 2.0</div>
+                <h1><span style={{ display: 'block', fontSize: '0.6em', color: 'var(--accent-cyan)', marginBottom: '10px' }}>AutoFlow Digital</span>
+                    Skaluj Biznes Bez Chaosu <br />dzięki <TextRotator words={["Automatyzacji AI", "Wirtualnym Agentom", "Inteligentnym Procesom", "Technologii No-Code"]} interval={3000} /></h1>
 
                 <div className="hero-buttons" style={{ marginTop: '40px', display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <a href="#contact" className="btn-cta primary" style={{ padding: '16px 32px', fontSize: '1.1rem' }} onClick={scrollToContact}>

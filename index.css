@@ -20,24 +20,31 @@
 :root {
     --bg-dark: #020617;
     /* Deeper, richer blue-black */
-    --bg-card: rgba(15, 23, 42, 0.8);
-    /* Much higher opacity for readability */
-    --bg-card-hover: rgba(30, 41, 59, 0.9);
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    /* Lighter grey for better contrast */
+    --bg-card: rgba(15, 23, 42, 0.6);
+    /* Lighter, more translucent for better glassmorphism */
+    --bg-card-hover: rgba(30, 41, 59, 0.7);
+    --text-primary: #f1f5f9;
+    /* Brighter white for headings */
+    --text-secondary: #94a3b8;
+    /* Muted blue-grey for subtext */
     --accent-blue: #3b82f6;
-    --accent-purple: #6366f1;
-    /* Shifted slightly blue-er */
-    --accent-cyan: #06b6d4;
-    --border-glass: rgba(148, 163, 184, 0.1);
+    --accent-purple: #818cf8;
+    /* Slightly lighter purple */
+    --accent-cyan: #22d3ee;
+    /* Brighter cyan */
+    --border-glass: rgba(255, 255, 255, 0.08);
+    /* More subtle border */
     --font-sans: 'Inter', system-ui, sans-serif;
     --font-heading: 'Outfit', system-ui, sans-serif;
     --font-mono: 'Roboto Mono', monospace;
-    --color-error: #f87171;
-    /* Softer red */
-    --color-success: #4ade80;
-    /* Brighter green */
+    --color-error: #ef4444;
+    --color-success: #10b981;
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+::selection {
+    background: rgba(34, 211, 238, 0.2);
+    color: white;
 }
 
 html {
@@ -388,63 +395,78 @@ ul {
 }
 
 .btn-cta {
-    background: white;
-    color: black;
-    padding: 10px 20px;
-    border-radius: 99px;
-    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 12px;
+    /* Modern rounded corners, not pill */
+    font-weight: 500;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    border: none;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     position: relative;
     overflow: hidden;
-    z-index: 101;
-    /* Ensure button stays clickable */
-    white-space: normal;
-    /* Allow text wrap on mobile */
-    text-align: center;
-    flex-shrink: 1;
-    /* Allow shrinking */
-    line-height: 1.2;
+    z-index: 10;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
 }
 
 @media(min-width: 768px) {
     .btn-cta {
-        padding: 12px 24px;
-        font-size: 0.95rem;
+        padding: 14px 32px;
+        font-size: 1rem;
     }
 }
 
 .btn-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 40px rgba(34, 211, 238, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
+.btn-cta::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.btn-cta:hover::after {
+    left: 100%;
+}
+
+
 .btn-cta.primary {
-    background: linear-gradient(90deg, #06b6d4, #3b82f6);
-    color: white;
-    border: 1px solid transparent;
+    background: linear-gradient(135deg, #06b6d4, #2563eb);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);
 }
 
 .btn-cta.primary:hover {
-    background: linear-gradient(90deg, #0891b2, #2563eb);
+    background: linear-gradient(135deg, #0891b2, #1d4ed8);
+    box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
 }
 
 .btn-cta.outline {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-glass);
-    color: white;
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
 }
 
 .btn-cta.outline:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: white;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
 }
 
 /* === Hero Redesigned === */
