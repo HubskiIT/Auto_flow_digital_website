@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LandingPage } from '@/src/pages/LandingPage';
 import { CalendarPage } from '@/src/pages/CalendarPage';
+import { AutomationsCatalogPage } from '@/src/pages/AutomationsCatalogPage';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/calendar/*" element={<CalendarPage />} />
+                <Route path="/katalog-automatyzacji" element={<AutomationsCatalogPage />} />
             </Routes>
         </BrowserRouter>
     );

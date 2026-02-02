@@ -125,3 +125,8 @@ get_node_types.mjs
 get_telegram_id.mjs
 n8n_result.json
 test_submission.mjs
+.venv
+skills/
+config_keys.mjs
+*.key
+credentials.json
