@@ -13,7 +13,7 @@ export const SEO: React.FC<SEOProps> = ({
     title = 'AutoFlow Digital | Agencja Automatyzacji AI & No-Code',
     description = 'Zwiększ zyski i oszczędzaj czas dzięki automatyzacji AI. Tworzymy dedykowane systemy dla nowoczesnych firm.',
     image = 'https://hubskiit.github.io/Auto_flow_digital_website/og-image.jpg',
-    url = 'https://autoflow.digital/',
+    url = 'https://autoflowdigital.pl/',
     type = 'website'
 }) => {
     const siteTitle = title === 'AutoFlow Digital' ? title : `${title} | AutoFlow Digital`;

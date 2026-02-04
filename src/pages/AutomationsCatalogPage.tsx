@@ -155,7 +155,7 @@ export const AutomationsCatalogPage: React.FC = () => {
             <SEO
                 title="Katalog Automatyzacji"
                 description="Przeglądaj gotowe rozwiązania automatyzacji dla biznesu: AI recepcjonistka, generowanie leadów, content marketing."
-                url="https://autoflow.digital/katalog-automatyzacji"
+                url="https://autoflowdigital.pl/katalog-automatyzacji"
             />
             <Navbar
                 scrolled={true}
