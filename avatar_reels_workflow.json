@@ -1,0 +1,309 @@
+{
+    "name": "Avatar Reels Generator (HeyGen + ElevenLabs)",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Manual Trigger",
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "script",
+                            "value": "Cześć! To jest test mojego cyfrowego awatara. Jeśli to widzisz, automatyzacja działa poprawnie."
+                        },
+                        {
+                            "name": "voice_id",
+                            "value": "REPLACE_WITH_YOUR_ELEVENLABS_VOICE_ID"
+                        },
+                        {
+                            "name": "avatar_id",
+                            "value": "REPLACE_WITH_YOUR_HEYGEN_AVATAR_ID"
+                        }
+                    ]
+                }
+            },
+            "name": "Test Configuration",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.elevenlabs.io/v1/text-to-speech/{{ $json.voice_id }}",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "headerAuth",
+                "options": {
+                    "responseFormat": "file"
+                },
+                "bodyParametersUi": {
+                    "parameter": [
+                        {
+                            "name": "text",
+                            "value": "={{ $json.script }}"
+                        },
+                        {
+                            "name": "model_id",
+                            "value": "eleven_multilingual_v2"
+                        }
+                    ]
+                }
+            },
+            "name": "ElevenLabs TTS",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                650,
+                300
+            ],
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "elevenlabs_cred_id_placeholder",
+                    "name": "ElevenLabs API"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://upload.heygen.com/v1/asset",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "headerAuth",
+                "sendBinaryData": true,
+                "binaryPropertyName": "data",
+                "options": {}
+            },
+            "name": "Upload Audio to HeyGen",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                850,
+                300
+            ],
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "heygen_cred_id_placeholder",
+                    "name": "HeyGen API"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.heygen.com/v2/video/generate",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "headerAuth",
+                "bodyParametersUi": {
+                    "parameter": [
+                        {
+                            "name": "video_inputs",
+                            "value": "={{ [{\"character\":{\"type\":\"avatar\",\"avatar_id\":\"\" + $('Test Configuration').item.json.avatar_id + \"\",\"avatar_style\":\"normal\"},\"voice\":{\"type\":\"audio\",\"audio_asset_id\":\"\" + $json.data.id + \"\"}}] }}"
+                        },
+                        {
+                            "name": "dimension",
+                            "value": "={{ {\"width\": 1080, \"height\": 1920} }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Generate HeyGen Video",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1050,
+                300
+            ],
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "heygen_cred_id_placeholder",
+                    "name": "HeyGen API"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "amount": 30,
+                "unit": "seconds"
+            },
+            "name": "Wait 30s",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1,
+            "position": [
+                1250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "={{ \"https://api.heygen.com/v1/video_status.get?video_id=\" + $json.data.video_id }}",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "headerAuth",
+                "options": {}
+            },
+            "name": "Check Video Status",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1450,
+                300
+            ],
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "heygen_cred_id_placeholder",
+                    "name": "HeyGen API"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json.data.status }}",
+                            "operation": "equal",
+                            "value2": "completed"
+                        }
+                    ]
+                }
+            },
+            "name": "Is Completed?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                1650,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "chatId": "@AutoFlowDigital_Channel",
+                "text": "\ud83e\udd16 *Avatar Video Ready!*\n\nTwoje wideo zosta\u0142o wygenerowane.\n[Zobacz Wideo]({{ $json.data.video_url }})",
+                "additionalFields": {
+                    "parse_mode": "Markdown"
+                }
+            },
+            "name": "Send to Telegram",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1,
+            "position": [
+                1900,
+                200
+            ],
+            "credentials": {
+                "telegramApi": {
+                    "id": "12yTgERwZN5YecU8",
+                    "name": "Telegram Bot Content Calendar"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Manual Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Test Configuration",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Test Configuration": {
+            "main": [
+                [
+                    {
+                        "node": "ElevenLabs TTS",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "ElevenLabs TTS": {
+            "main": [
+                [
+                    {
+                        "node": "Upload Audio to HeyGen",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Upload Audio to HeyGen": {
+            "main": [
+                [
+                    {
+                        "node": "Generate HeyGen Video",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Generate HeyGen Video": {
+            "main": [
+                [
+                    {
+                        "node": "Wait 30s",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait 30s": {
+            "main": [
+                [
+                    {
+                        "node": "Check Video Status",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check Video Status": {
+            "main": [
+                [
+                    {
+                        "node": "Is Completed?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Is Completed?": {
+            "main": [
+                [
+                    {
+                        "node": "Send to Telegram",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Wait 30s",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

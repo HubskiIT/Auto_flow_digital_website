@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { SEO } from '@/src/components/common/SEO';
 import { CalendarLayout } from '@/src/components/Calendar/CalendarLayout';
 import { CalendarGrid } from '@/src/components/Calendar/CalendarGrid';
 import { ContentBank } from '@/src/components/Calendar/ContentBank';
@@ -13,6 +14,10 @@ export const CalendarPage: React.FC = () => {
 
     return (
         <CalendarLayout>
+            <SEO
+                title="Content Calendar"
+                description="Planuj i automatyzuj swoje treści w social media."
+            />
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

@@ -7,6 +7,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { LandingPage } from '@/src/pages/LandingPage';
 import { CalendarPage } from '@/src/pages/CalendarPage';
 import { AutomationsCatalogPage } from '@/src/pages/AutomationsCatalogPage';
@@ -26,5 +29,13 @@ function App() {
 const rootElement = document.getElementById('root');
 if (rootElement) {
     const root = ReactDOM.createRoot(rootElement);
-    root.render(<React.StrictMode><App /></React.StrictMode>);
+    root.render(
+        <React.StrictMode>
+            <HelmetProvider>
+                <App />
+                <Analytics />
+                <SpeedInsights />
+            </HelmetProvider>
+        </React.StrictMode>
+    );
 }

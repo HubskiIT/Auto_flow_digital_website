@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SEO } from '../components/common/SEO';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import ScrollReveal from '../components/common/ScrollReveal';
@@ -151,6 +152,11 @@ export const AutomationsCatalogPage: React.FC = () => {
 
     return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-dark)' }}>
+            <SEO
+                title="Katalog Automatyzacji"
+                description="Przeglądaj gotowe rozwiązania automatyzacji dla biznesu: AI recepcjonistka, generowanie leadów, content marketing."
+                url="https://autoflow.digital/katalog-automatyzacji"
+            />
             <Navbar
                 scrolled={true}
                 mobileMenuOpen={mobileMenuOpen}

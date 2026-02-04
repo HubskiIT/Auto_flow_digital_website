@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SEO } from '@/src/components/common/SEO';
 import AuditSection from '@/src/components/sections/AuditSection';
 import DottedGlowBackground from '@/src/components/common/DottedGlowBackground';
 import ChatDemo from '@/src/components/features/ChatDemo';
@@ -42,6 +43,7 @@ export const LandingPage: React.FC = () => {
 
     return (
         <>
+            <SEO />
             <DottedGlowBackground
                 gap={40}
                 radius={1}

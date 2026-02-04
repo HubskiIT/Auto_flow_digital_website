@@ -1,0 +1,311 @@
+{
+    "name": "Idea Producer (Approved -> Video)",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "hours",
+                            "triggerAtHour": 12
+                        }
+                    ]
+                }
+            },
+            "name": "Check Hourly",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Content Ideas",
+                    "mode": "name"
+                },
+                "filtersUI": {
+                    "values": [
+                        {
+                            "lookupColumn": "Status",
+                            "lookupValue": "Approved"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Get Approved Ideas",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                220,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "model": "gpt-4o",
+                "prompt": {
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": "You are a professional script writer. Rewrite the following viral content summary into a new, unique script for an AI Avatar. Keep it engaging, under 60 seconds, and optimized for Instagram Reels."
+                        },
+                        {
+                            "role": "user",
+                            "content": "Summary/Original: {{ $json.Summary }}\nLink: {{ $json.Original_Link }}"
+                        }
+                    ]
+                }
+            },
+            "name": "Rewrite Script",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1.4,
+            "position": [
+                440,
+                0
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "openai_cred_id_placeholder",
+                    "name": "OpenAI Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "modelId": "eleven_monolingual_v1",
+                "text": "={{ $json.message.content }}",
+                "voiceId": "ER4w4K4Z0X5b7d6a5d4d"
+            },
+            "name": "ElevenLabs Audio",
+            "type": "n8n-nodes-base.elevenLabs",
+            "typeVersion": 1,
+            "position": [
+                660,
+                0
+            ],
+            "credentials": {
+                "elevenLabsApi": {
+                    "id": "elevenlabs_cred_id_placeholder",
+                    "name": "ElevenLabs Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.heygen.com/v2/video/generate",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "headerAuth",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "video_inputs",
+                            "value": "={{ [ { \"character\": { \"type\": \"avatar\", \"avatar_id\": \"Silas_Avatar_ID_Here\", \"avatar_style\": \"normal\" }, \"voice\": { \"type\": \"audio\", \"audio_url\": \"$json.url_from_elevenlabs_or_binary\" } } ] }}"
+                        },
+                        {
+                            "name": "test",
+                            "value": "true"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "HeyGen Generate",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                880,
+                0
+            ],
+            "notes": "Need to handle file upload to HeyGen correctly or pass URL",
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "heygen_cred_id_placeholder",
+                    "name": "HeyGen Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "amount": 5,
+                "unit": "minutes"
+            },
+            "name": "Wait for Video",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1,
+            "position": [
+                1100,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "update",
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Content Ideas",
+                    "mode": "name"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Status": "Produced",
+                        "Video_Link": "={{ $json.data.video_url }}"
+                    },
+                    "matchingColumns": [
+                        "Original_Link"
+                    ],
+                    "schema": [
+                        {
+                            "id": "Status",
+                            "displayName": "Status",
+                            "type": "string"
+                        },
+                        {
+                            "id": "Video_Link",
+                            "displayName": "Video_Link",
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "name": "Update Sheet",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                1320,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "chatId": "YOUR_CHAT_ID",
+                "text": "New Video Produced: {{ $json.data.video_url }}",
+                "additionalFields": {}
+            },
+            "name": "Telegram Notify",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.2,
+            "position": [
+                1540,
+                0
+            ],
+            "credentials": {
+                "telegramApi": {
+                    "id": "telegram_cred_id_placeholder",
+                    "name": "Telegram Account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Check Hourly": {
+            "main": [
+                [
+                    {
+                        "node": "Get Approved Ideas",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Approved Ideas": {
+            "main": [
+                [
+                    {
+                        "node": "Rewrite Script",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Rewrite Script": {
+            "main": [
+                [
+                    {
+                        "node": "ElevenLabs Audio",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "ElevenLabs Audio": {
+            "main": [
+                [
+                    {
+                        "node": "HeyGen Generate",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HeyGen Generate": {
+            "main": [
+                [
+                    {
+                        "node": "Wait for Video",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait for Video": {
+            "main": [
+                [
+                    {
+                        "node": "Update Sheet",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update Sheet": {
+            "main": [
+                [
+                    {
+                        "node": "Telegram Notify",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}
