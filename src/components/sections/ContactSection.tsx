@@ -67,7 +67,7 @@ const ContactSection = () => {
         };
 
         try {
-            const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+            const webhookUrl = import.meta.env.VITE_N8N_CONTACT_WEBHOOK_URL;
             if (!webhookUrl) {
                 console.error("Webhook URL not defined in env");
                 alert("Błąd konfiguracji formularza. Skontaktuj się z nami telefonicznie.");

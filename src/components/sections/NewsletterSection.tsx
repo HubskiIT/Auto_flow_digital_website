@@ -9,11 +9,25 @@ const NewsletterSection = () => {
         e.preventDefault();
         setStatus('loading');
 
-        // Simulation of API call
-        setTimeout(() => {
+        try {
+            const webhookUrl = import.meta.env.VITE_N8N_NEWSLETTER_WEBHOOK_URL;
+            if (!webhookUrl) throw new Error('Webhook URL not configured');
+
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, source: 'newsletter_section' })
+            });
+
+            if (!response.ok) throw new Error('Submission failed');
+
             setStatus('success');
             setEmail('');
-        }, 1500);
+        } catch (error) {
+            console.error('Newsletter error:', error);
+            setStatus('error');
+            setTimeout(() => setStatus('idle'), 3000);
+        }
     };
 
     return (

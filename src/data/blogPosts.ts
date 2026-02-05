@@ -11,6 +11,7 @@ export interface BlogPost {
     tags: string[];
     imageUrl: string;
     imageAlt: string;
+    audioUrl?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -26,6 +27,7 @@ export const blogPosts: BlogPost[] = [
         tags: ['AI', 'Chatbot', 'Automatyzacja', 'Obsługa klienta'],
         imageUrl: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1200&h=630&fit=crop',
         imageAlt: 'Nowoczesny chatbot AI obsługujący klientów',
+        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', // Placeholder for testing
         content: `
 # Jak Działa Chatbot AI Recepcjonistka? Kompletny Przewodnik dla Firm
 

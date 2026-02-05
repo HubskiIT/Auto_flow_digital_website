@@ -5,6 +5,7 @@ import Footer from '@/src/components/layout/Footer';
 import { SEO } from '@/src/components/common/SEO';
 import { Breadcrumbs } from '@/src/components/navigation/Breadcrumbs';
 import { RelatedPosts } from '@/src/components/blog/RelatedPosts';
+import { AudioPlayer } from '@/src/components/blog/AudioPlayer';
 import { blogPosts } from '@/src/data/blogPosts';
 
 export const BlogPostPage: React.FC = () => {
@@ -96,6 +97,11 @@ export const BlogPostPage: React.FC = () => {
 
                 <div className="container">
                     <div className="blog-post-content">
+                        {post.audioUrl && (
+                            <div className="mb-8">
+                                <AudioPlayer src={post.audioUrl} title={`Posłuchaj artykułu: ${post.title}`} />
+                            </div>
+                        )}
                         <ReactMarkdown>{post.content}</ReactMarkdown>
                     </div>
 
