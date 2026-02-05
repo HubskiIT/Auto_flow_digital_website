@@ -18,7 +18,7 @@ export const caseStudiesData: CaseStudy[] = [
         industry: 'E-commerce / Cukiernictwo',
         title: 'Candy Company - Automatyzacja Sprzedaży Online',
         description: 'Lokalna cukiernia z ambicjami e-commerce zmagała się z 65% porzuconymi koszykami, chaotyczną obsługą klienta (4h dziennie na maile/DM) i niemożnością skalowania bez zatrudniania. Wdrożyliśmy kompleksowy ekosystem AI + automatyzacji, który zamienił firmę w samosterującą maszynę sprzedażową.',
-        screenshot: '/candy-company-mockup.png', // Will be generated
+        screenshot: '/candy-company-mockup.png',
         automations: [
             'AI Chatbot 24/7 - odpowiedzi na pytania o produkty, alergeny, dostępność',
             'Abandoned Cart Recovery - automatyczne SMS/Email z przypomnieniem + 10% kod rabatowy',

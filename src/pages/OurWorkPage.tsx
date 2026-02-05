@@ -1,5 +1,4 @@
 import React from 'react';
-import { SEO } from '@/src/components/seo/SEO';
 import { Breadcrumbs } from '@/src/components/navigation/Breadcrumbs';
 import DottedGlowBackground from '@/src/components/common/DottedGlowBackground';
 import ScrollReveal from '@/src/components/common/ScrollReveal';
@@ -88,7 +87,7 @@ export const OurWorkPage: React.FC = () => {
                                     screenshot={caseStudy.screenshot}
                                     automations={caseStudy.automations}
                                     results={caseStudy.results}
-                                    icon={caseStudy.icon}
+                                    iconName={caseStudy.iconName}
                                     bgColor={caseStudy.bgColor}
                                 />
                             </ScrollReveal>

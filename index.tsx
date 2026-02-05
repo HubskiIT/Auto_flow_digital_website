@@ -16,6 +16,7 @@ import { CalendarPage } from '@/src/pages/CalendarPage';
 import { AutomationsCatalogPage } from '@/src/pages/AutomationsCatalogPage';
 import { BlogListPage } from '@/src/pages/BlogListPage';
 import { BlogPostPage } from '@/src/pages/BlogPostPage';
+import { OurWorkPage } from '@/src/pages/OurWorkPage';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/calendar/*" element={<CalendarPage />} />
                 <Route path="/kalendarz" element={<CalendarPage />} />
                 <Route path="/katalog-automatyzacji" element={<AutomationsCatalogPage />} />
+                <Route path="/nasze-projekty" element={<OurWorkPage />} />
                 <Route path="/blog" element={<BlogListPage />} />
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
             </Routes>

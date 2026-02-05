@@ -32,6 +32,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
                     <a href="#arsenal" className="nav-link" onClick={(e) => scrollToSection(e, 'arsenal')}>Arsenał</a>
                     <a href="#websites" className="nav-link" onClick={(e) => scrollToSection(e, 'websites')}>Strony WWW</a>
                     <a href="#process" className="nav-link" onClick={(e) => scrollToSection(e, 'process')}>Proces</a>
+                    <Link to="/nasze-projekty" className="nav-link">Projekty</Link>
                     <Link to="/katalog-automatyzacji" className="nav-link" style={{ color: 'var(--accent-cyan)' }}>Katalog</Link>
                     <a href="#reviews" className="nav-link" onClick={(e) => scrollToSection(e, 'reviews')}>Opinie</a>
                     <a href="#audit" className="nav-link" style={{ color: '#06b6d4', fontWeight: 'bold' }} onClick={(e) => scrollToSection(e, 'audit')}>Audyt</a>
@@ -57,6 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
                     <a href="#arsenal" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'arsenal'); setMobileMenuOpen(false); }}>Arsenał</a>
                     <a href="#websites" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'websites'); setMobileMenuOpen(false); }}>Strony WWW</a>
                     <a href="#process" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'process'); setMobileMenuOpen(false); }}>Proces</a>
+                    <Link to="/nasze-projekty" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Projekty</Link>
                     <Link to="/katalog-automatyzacji" className="mobile-nav-link" style={{ color: 'var(--accent-cyan)' }} onClick={() => setMobileMenuOpen(false)}>Katalog</Link>
                     <a href="#reviews" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'reviews'); setMobileMenuOpen(false); }}>Opinie</a>
                     <a href="#audit" className="mobile-nav-link" style={{ color: '#06b6d4' }} onClick={(e) => { scrollToSection(e, 'audit'); setMobileMenuOpen(false); }}>Audyt</a>

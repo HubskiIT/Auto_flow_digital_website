@@ -47,7 +47,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
         <div className="case-study-card">
             {/* Industry Badge */}
             <div className="case-study-badge" style={{ background: bgColor }}>
-                <div className="case-study-badge-icon">{icon}</div>
+                <div className="case-study-badge-icon"><IconComponent /></div>
                 <span>{industry}</span>
             </div>
 
