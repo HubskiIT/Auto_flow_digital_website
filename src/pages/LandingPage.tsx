@@ -4,6 +4,9 @@ import { SchemaOrg } from '@/src/components/seo/SchemaOrg';
 import AuditSection from '@/src/components/sections/AuditSection';
 import DottedGlowBackground from '@/src/components/common/DottedGlowBackground';
 import InfiniteTicker from '@/src/components/common/InfiniteTicker';
+import ScrollReveal from '@/src/components/common/ScrollReveal';
+import ChatDemo from '@/src/components/features/ChatDemo';
+import WebsitesSection from '@/src/components/sections/WebsitesSection';
 import HeroSection from '@/src/components/sections/HeroSection';
 import ProblemSection from '@/src/components/sections/ProblemSection';
 import SolutionsSection from '@/src/components/sections/SolutionsSection';
@@ -23,7 +26,7 @@ export const LandingPage: React.FC = () => {
 
     // Add scroll listener logic if needed, or pass props
     // Re-implementing scrollToSection logic
-    const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    const scrollToSection = (e: React.MouseEvent, id: string) => {
         e.preventDefault();
         const element = document.getElementById(id);
         if (element) {
@@ -58,23 +61,34 @@ export const LandingPage: React.FC = () => {
 
             <HeroSection scrollToContact={(e) => scrollToSection(e, 'contact')} />
 
-
-            <ROICalculator />
+            {/* <ROICalculator /> - Removed for simplified narrative */}
 
             <ProblemSection />
 
-            <AuditSection />
+            {/* <AuditSection /> - Removed for simplified narrative */}
 
-            <section style={{ padding: '0 0 100px 0' }}><InfiniteTicker /></section>
+            {/* <section style={{ padding: '0 0 100px 0' }}><InfiniteTicker /></section> - Removed for simplified narrative */}
+
+            <section id="demo" className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                <div className="container">
+                    <ScrollReveal>
+                        <span className="section-title">Zobacz to w akcji</span>
+                        <h2 className="section-headline">Jak to działa <span style={{ color: '#06b6d4' }}>naprawdę?</span></h2>
+                        <ChatDemo />
+                    </ScrollReveal>
+                </div>
+            </section>
 
             <SolutionsSection />
+
+            <WebsitesSection />
             <ArsenalSection />
 
             <ProcessSection />
-            <CaseStudiesSection />
             <ReviewsSection />
+            <CaseStudiesSection />
 
-            <FaqSection />
+            {/* <FaqSection /> - Removed for simplified narrative */}
             <ContactSection />
 
             <Footer />

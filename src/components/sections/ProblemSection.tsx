@@ -6,26 +6,26 @@ const ProblemSection = () => {
         <section id="problem" className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
             <div className="container">
                 <ScrollReveal>
-                    <span className="section-title">Diagnoza Problemu</span>
-                    <h2 className="section-headline">Czy Ręczne Procesy <span style={{ color: '#ef4444' }}>Hamują Twój Rozwój</span>?</h2>
+                    <span className="section-title">Wyzwania Codzienności</span>
+                    <h2 className="section-headline">Kiedy Biznes Staje się <span style={{ color: '#ef4444' }}>Ciężarem</span></h2>
                 </ScrollReveal>
                 <div className="grid-3">
                     <ScrollReveal delay={100}>
                         <div className="card">
-                            <h3 style={{ color: '#ef4444' }}>01. Chaos Komunikacyjny</h3>
-                            <p>Gubisz leady, bo handlowcy nie odpisują od razu? Skrzynki mailowe pękają w szwach, a klient czeka 2 dni na wycenę?</p>
+                            <h3 style={{ color: '#ef4444' }}>01. Nadmiar Obowiązków</h3>
+                            <p>Zamiast rozwijać firmę i wizję, wciąż gasisz pożary, toniesz w tabelkach i powtarzalnych zadaniach administracyjnych.</p>
                         </div>
                     </ScrollReveal>
                     <ScrollReveal delay={200}>
                         <div className="card">
-                            <h3 style={{ color: '#ef4444' }}>02. Wypalenie Zespołu</h3>
-                            <p>Twoi najlepsi ludzie marnują 40% czasu na "kopiuj-wklej", wprowadzanie faktur i raportowanie, zamiast zarabiać pieniądze.</p>
+                            <h3 style={{ color: '#ef4444' }}>02. Brak Czasu dla Siebie</h3>
+                            <p>Czujesz, że każda decyzja i proces musi przejść przez Ciebie. Marzyłeś o wolności, a stałeś się zakładnikiem własnego sukcesu.</p>
                         </div>
                     </ScrollReveal>
                     <ScrollReveal delay={300}>
                         <div className="card">
-                            <h3 style={{ color: '#ef4444' }}>03. Bariera Skalowalności</h3>
-                            <p>Chcesz obsłużyć 2x więcej klientów, ale to wymagałoby zatrudnienia 2x więcej osób? To model, który zabija marżę.</p>
+                            <h3 style={{ color: '#ef4444' }}>03. Niewykorzystany Potencjał</h3>
+                            <p>Twoja firma może działać lepiej, szybciej i bez Twego ciągłego nadzoru. Obecny chaos blokuje Twój prawdziwy wzrost.</p>
                         </div>
                     </ScrollReveal>
                 </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import ScrollReveal from '../common/ScrollReveal';
 import { MessageSquareIcon, StarIcon, BoltIcon } from '../common/Icons';
-import ChatDemo from '../features/ChatDemo';
 
 const SolutionsSection = () => {
     return (
@@ -20,7 +19,7 @@ const SolutionsSection = () => {
                                 <div style={{ width: '50px', height: '50px', background: 'rgba(6, 182, 212, 0.15)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#06b6d4', marginBottom: '24px' }}>
                                     <MessageSquareIcon />
                                 </div>
-                                <h3 style={{ fontSize: '1.4rem', marginBottom: '16px' }}>1. AI CHATBOT <br /><span style={{ fontSize: '1rem', fontWeight: '400', color: '#94a3b8' }}>Pierwszy kontakt 24/7</span></h3>
+                                <h3 style={{ fontSize: '1.4rem', marginBottom: '16px' }}>1. Automatyczna Sprzedaż <br /><span style={{ fontSize: '1rem', fontWeight: '400', color: '#94a3b8' }}>Obsługa klienta 24/7</span></h3>
 
                                 <div style={{ marginBottom: '16px' }}>
                                     <div style={{ fontSize: '0.85rem', color: '#f87171', fontWeight: '700', textTransform: 'uppercase', marginBottom: '4px' }}>Problem</div>
@@ -29,19 +28,13 @@ const SolutionsSection = () => {
 
                                 <div style={{ marginBottom: '20px' }}>
                                     <div style={{ fontSize: '0.85rem', color: '#3b82f6', fontWeight: '700', textTransform: 'uppercase', marginBottom: '4px' }}>Korzyść</div>
-                                    <p style={{ fontSize: '0.95rem', lineHeight: '1.5', color: 'white' }}>Bot odpowiada natychmiast: ceny, terminy, umawia spotkania. Ty budzisz się z nowymi klientami w kalendarzu.</p>
-                                </div>
-
-                                {/* Interactive Demo */}
-                                <div style={{ marginBottom: '20px', padding: '16px', background: 'rgba(6, 182, 212, 0.05)', border: '1px solid rgba(6, 182, 212, 0.2)', borderRadius: '8px' }}>
-                                    <div style={{ fontSize: '0.85rem', color: '#06b6d4', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px' }}>↓ Zobacz to w akcji</div>
-                                    <ChatDemo />
+                                    <p style={{ fontSize: '0.95rem', lineHeight: '1.5', color: 'white' }}>System odpowiada natychmiast, kwalifikuje klienta i umawia spotkanie. Budzisz się z pełnym kalendarzem.</p>
                                 </div>
                             </div>
 
                             <div style={{ padding: '16px', background: 'rgba(74, 222, 128, 0.1)', border: '1px solid rgba(74, 222, 128, 0.2)', borderRadius: '8px' }}>
                                 <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#4ade80', marginBottom: '4px' }}>Rezultat</div>
-                                <div style={{ fontSize: '1.1rem', fontWeight: '800', color: 'white' }}>+35% leadów <span style={{ fontWeight: '400', fontSize: '0.9rem', color: '#86efac' }}>(bo konkurencja śpi)</span></div>
+                                <div style={{ fontSize: '1.1rem', fontWeight: '800', color: 'white' }}>+35% leadów <span style={{ fontWeight: '400', fontSize: '0.9rem', color: '#86efac' }}>(zerowym kosztem czasu)</span></div>
                             </div>
                         </div>
                     </ScrollReveal>
@@ -53,7 +46,7 @@ const SolutionsSection = () => {
                                 <div style={{ width: '50px', height: '50px', background: 'rgba(245, 158, 11, 0.15)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#f59e0b', marginBottom: '24px' }}>
                                     <StarIcon />
                                 </div>
-                                <h3 style={{ fontSize: '1.4rem', marginBottom: '16px' }}>2. LEAD SCORING <br /><span style={{ fontSize: '1rem', fontWeight: '400', color: '#94a3b8' }}>Tylko gorące okazje</span></h3>
+                                <h3 style={{ fontSize: '1.4rem', marginBottom: '16px' }}>2. Inteligentna Selekcja <br /><span style={{ fontSize: '1rem', fontWeight: '400', color: '#94a3b8' }}>Tylko gorące okazje</span></h3>
 
                                 <div style={{ marginBottom: '16px' }}>
                                     <div style={{ fontSize: '0.85rem', color: '#f87171', fontWeight: '700', textTransform: 'uppercase', marginBottom: '4px' }}>Problem</div>
@@ -62,13 +55,13 @@ const SolutionsSection = () => {
 
                                 <div style={{ marginBottom: '20px' }}>
                                     <div style={{ fontSize: '0.85rem', color: '#3b82f6', fontWeight: '700', textTransform: 'uppercase', marginBottom: '4px' }}>Korzyść</div>
-                                    <p style={{ fontSize: '0.95rem', lineHeight: '1.5', color: 'white' }}>AI analizuje każdą wiadomość, ocenia (gorący / ciepły / zimny), mówi zespołowi "Dzwonić TERAZ".</p>
+                                    <p style={{ fontSize: '0.95rem', lineHeight: '1.5', color: 'white' }}>AI analizuje każdą wiadomość, ocenia potencjał i przekazuje handlowcom tylko te warte uwagi.</p>
                                 </div>
                             </div>
 
                             <div style={{ padding: '16px', background: 'rgba(74, 222, 128, 0.1)', border: '1px solid rgba(74, 222, 128, 0.2)', borderRadius: '8px' }}>
                                 <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#4ade80', marginBottom: '4px' }}>Rezultat</div>
-                                <div style={{ fontSize: '1.1rem', fontWeight: '800', color: 'white' }}>3x szybsze zamykanie transakcji</div>
+                                <div style={{ fontSize: '1.1rem', fontWeight: '800', color: 'white' }}>3x wyższa konwersja</div>
                             </div>
                         </div>
                     </ScrollReveal>
@@ -80,7 +73,7 @@ const SolutionsSection = () => {
                                 <div style={{ width: '50px', height: '50px', background: 'rgba(139, 92, 246, 0.15)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#8b5cf6', marginBottom: '24px' }}>
                                     <BoltIcon />
                                 </div>
-                                <h3 style={{ fontSize: '1.4rem', marginBottom: '16px' }}>3. AUTOMATYZACJA <br /><span style={{ fontSize: '1rem', fontWeight: '400', color: '#94a3b8' }}>Zespół wolny od rutyny</span></h3>
+                                <h3 style={{ fontSize: '1.4rem', marginBottom: '16px' }}>3. Operacje Bezobsługowe <br /><span style={{ fontSize: '1rem', fontWeight: '400', color: '#94a3b8' }}>Firma na autopilocie</span></h3>
 
                                 <div style={{ marginBottom: '16px' }}>
                                     <div style={{ fontSize: '0.85rem', color: '#f87171', fontWeight: '700', textTransform: 'uppercase', marginBottom: '4px' }}>Problem</div>
