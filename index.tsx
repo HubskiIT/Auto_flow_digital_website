@@ -2,7 +2,7 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -20,6 +20,7 @@ import { BlogPostPage } from '@/src/pages/BlogPostPage';
 function App() {
     return (
         <BrowserRouter>
+            <GoogleAnalytics />
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/calendar/*" element={<CalendarPage />} />
@@ -38,7 +39,6 @@ if (rootElement) {
     root.render(
         <React.StrictMode>
             <HelmetProvider>
-                <GoogleAnalytics />
                 <App />
                 <Analytics />
                 <SpeedInsights />
@@ -46,3 +46,4 @@ if (rootElement) {
         </React.StrictMode>
     );
 }
+
