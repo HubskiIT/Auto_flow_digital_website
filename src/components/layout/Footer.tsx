@@ -14,7 +14,7 @@ const Footer = () => {
                             <MailIcon /> contact@autoflowdigital.pl
                         </a>
                     </div>
-                    <div className="footer-col"><h4>Nawigacja</h4><div className="footer-links"><a href="#problem" className="footer-link">Problem</a><a href="#mission" className="footer-link">Misja</a><a href="#arsenal" className="footer-link">Arsenał</a><a href="#solutions" className="footer-link">Rozwiązania</a><a href="#process" className="footer-link">Proces</a><Link to="/nasze-projekty" className="footer-link">Projekty</Link><Link to="/blog" className="footer-link">Blog</Link><a href="#reviews" className="footer-link">Opinie</a><a href="#faq" className="footer-link">FAQ</a><a href="#contact" className="footer-link">Kontakt</a></div></div>
+                    <div className="footer-col"><h4>Nawigacja</h4><div className="footer-links"><a href="#solutions" className="footer-link">Automatyzacja</a><a href="#websites" className="footer-link">Strony WWW</a><a href="#cases" className="footer-link">Branże</a><a href="#process" className="footer-link">Proces</a><a href="#reviews" className="footer-link">Opinie</a><a href="#contact" className="footer-link">Kontakt</a></div></div>
                     <div className="footer-col"><h4>Prawne</h4><div className="footer-links"><a href="#" className="footer-link">Polityka Prywatności</a><a href="#" className="footer-link">Regulamin</a><a href="#" className="footer-link">RODO</a></div></div>
                     <div className="footer-col">
                         <h4>Social Media</h4>

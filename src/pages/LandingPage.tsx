@@ -65,7 +65,7 @@ export const LandingPage: React.FC = () => {
 
             <ProblemSection />
 
-            {/* <AuditSection /> - Removed for simplified narrative */}
+            <AuditSection />
 
             {/* <section style={{ padding: '0 0 100px 0' }}><InfiniteTicker /></section> - Removed for simplified narrative */}
 
