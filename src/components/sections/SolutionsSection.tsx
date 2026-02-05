@@ -1,6 +1,7 @@
 import React from 'react';
 import ScrollReveal from '../common/ScrollReveal';
 import { MessageSquareIcon, StarIcon, BoltIcon } from '../common/Icons';
+import ChatDemo from '../features/ChatDemo';
 
 const SolutionsSection = () => {
     return (
@@ -12,7 +13,7 @@ const SolutionsSection = () => {
                 </ScrollReveal>
 
                 <div className="grid-3">
-                    {/* Card 1 */}
+                    {/* Card 1 - AI Chatbot with Demo */}
                     <ScrollReveal delay={0}>
                         <div className="card" style={{ height: '100%', justifyContent: 'space-between' }}>
                             <div>
@@ -29,6 +30,12 @@ const SolutionsSection = () => {
                                 <div style={{ marginBottom: '20px' }}>
                                     <div style={{ fontSize: '0.85rem', color: '#3b82f6', fontWeight: '700', textTransform: 'uppercase', marginBottom: '4px' }}>Korzyść</div>
                                     <p style={{ fontSize: '0.95rem', lineHeight: '1.5', color: 'white' }}>Bot odpowiada natychmiast: ceny, terminy, umawia spotkania. Ty budzisz się z nowymi klientami w kalendarzu.</p>
+                                </div>
+
+                                {/* Interactive Demo */}
+                                <div style={{ marginBottom: '20px', padding: '16px', background: 'rgba(6, 182, 212, 0.05)', border: '1px solid rgba(6, 182, 212, 0.2)', borderRadius: '8px' }}>
+                                    <div style={{ fontSize: '0.85rem', color: '#06b6d4', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px' }}>↓ Zobacz to w akcji</div>
+                                    <ChatDemo />
                                 </div>
                             </div>
 

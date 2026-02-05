@@ -3,21 +3,14 @@ import { SEO } from '@/src/components/common/SEO';
 import { SchemaOrg } from '@/src/components/seo/SchemaOrg';
 import AuditSection from '@/src/components/sections/AuditSection';
 import DottedGlowBackground from '@/src/components/common/DottedGlowBackground';
-import ChatDemo from '@/src/components/features/ChatDemo';
-import ScrollReveal from '@/src/components/common/ScrollReveal';
 import InfiniteTicker from '@/src/components/common/InfiniteTicker';
 import HeroSection from '@/src/components/sections/HeroSection';
 import ProblemSection from '@/src/components/sections/ProblemSection';
-import MissionSection from '@/src/components/sections/MissionSection';
 import SolutionsSection from '@/src/components/sections/SolutionsSection';
-import VisionSection from '@/src/components/sections/VisionSection';
 import ArsenalSection from '@/src/components/sections/ArsenalSection';
-import WebsitesSection from '@/src/components/sections/WebsitesSection';
 import ProcessSection from '@/src/components/sections/ProcessSection';
 import CaseStudiesSection from '@/src/components/sections/CaseStudiesSection';
 import ReviewsSection from '@/src/components/sections/ReviewsSection';
-import LatestPostsSection from '@/src/components/sections/LatestPostsSection';
-import NewsletterSection from '@/src/components/sections/NewsletterSection';
 import FaqSection from '@/src/components/sections/FaqSection';
 import ContactSection from '@/src/components/sections/ContactSection';
 import Navbar from '@/src/components/layout/Navbar';
@@ -65,41 +58,25 @@ export const LandingPage: React.FC = () => {
 
             <HeroSection scrollToContact={(e) => scrollToSection(e, 'contact')} />
 
+
             <ROICalculator />
 
             <ProblemSection />
-
-            <MissionSection />
 
             <AuditSection />
 
             <section style={{ padding: '0 0 100px 0' }}><InfiniteTicker /></section>
 
-            <section id="demo" className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                <div className="container">
-                    <ScrollReveal>
-                        <span className="section-title">Zobacz to w akcji</span>
-                        <h2 className="section-headline">Jak to działa <span style={{ color: '#06b6d4' }}>naprawdę?</span></h2>
-                        <p style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 40px', color: 'var(--text-secondary)' }}>To nie magia. To precyzyjnie zaprojektowany system. Zobacz, co dzieje się "pod maską", gdy Twój klient wysyła wiadomość.</p>
-                        <ChatDemo />
-                    </ScrollReveal>
-                </div>
-            </section>
-
             <SolutionsSection />
-            <VisionSection />
             <ArsenalSection />
 
-            <WebsitesSection />
             <ProcessSection />
             <CaseStudiesSection />
             <ReviewsSection />
 
-            <LatestPostsSection />
-            <NewsletterSection />
-
             <FaqSection />
             <ContactSection />
+
             <Footer />
         </>
     );
