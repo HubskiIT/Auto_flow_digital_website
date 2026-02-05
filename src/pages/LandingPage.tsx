@@ -15,6 +15,8 @@ import WebsitesSection from '@/src/components/sections/WebsitesSection';
 import ProcessSection from '@/src/components/sections/ProcessSection';
 import CaseStudiesSection from '@/src/components/sections/CaseStudiesSection';
 import ReviewsSection from '@/src/components/sections/ReviewsSection';
+import LatestPostsSection from '@/src/components/sections/LatestPostsSection';
+import NewsletterSection from '@/src/components/sections/NewsletterSection';
 import FaqSection from '@/src/components/sections/FaqSection';
 import ContactSection from '@/src/components/sections/ContactSection';
 import Navbar from '@/src/components/layout/Navbar';
@@ -90,6 +92,10 @@ export const LandingPage: React.FC = () => {
             <ProcessSection />
             <CaseStudiesSection />
             <ReviewsSection />
+
+            <LatestPostsSection />
+            <NewsletterSection />
+
             <FaqSection />
             <ContactSection />
             <Footer />
