@@ -1,0 +1,160 @@
+{
+    "name": "Sales Bot - AutoFlow Analysis",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Manual Trigger",
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "keepOnlySet": true,
+                "values": {
+                    "string": [
+                        {
+                            "name": "Business Name",
+                            "value": "Pizza Napoli Warsaw"
+                        },
+                        {
+                            "name": "Address",
+                            "value": "Marszałkowska 1, Warsaw"
+                        },
+                        {
+                            "name": "Website",
+                            "value": "https://example.com"
+                        },
+                        {
+                            "name": "Niche",
+                            "value": "Restaurant"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Mock Google Maps Data",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 2,
+            "position": [
+                450,
+                300
+            ],
+            "notes": "Replace this with Apify/Google Maps Scraper node"
+        },
+        {
+            "parameters": {
+                "url": "={{ $json.Website }}",
+                "method": "GET",
+                "options": {
+                    "response": {
+                        "format": "text"
+                    }
+                }
+            },
+            "name": "Scrape Website",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                650,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "model": "gpt-4o",
+                "prompt": {
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": "Analyze the following business website content and draft a cold email selling automation services.\n\nBusiness: {{ $('Mock Google Maps Data').item.json['Business Name'] }}\nContent: {{ $json.data.substring(0, 2000) }}"
+                        }
+                    ]
+                }
+            },
+            "name": "AI Analysis",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1,
+            "position": [
+                850,
+                300
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "YOUR_OPENAI_CREDENTIAL_ID",
+                    "name": "OpenAI Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "sheetId": "1A2B3C...",
+                "range": "A:E",
+                "options": {}
+            },
+            "name": "Save fo Sheets",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4,
+            "position": [
+                1050,
+                300
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "YOUR_SHEETS_CREDENTIAL_ID",
+                    "name": "Google Sheets Account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Manual Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Mock Google Maps Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Mock Google Maps Data": {
+            "main": [
+                [
+                    {
+                        "node": "Scrape Website",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Scrape Website": {
+            "main": [
+                [
+                    {
+                        "node": "AI Analysis",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "AI Analysis": {
+            "main": [
+                [
+                    {
+                        "node": "Save fo Sheets",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

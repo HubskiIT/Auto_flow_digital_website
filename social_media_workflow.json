@@ -22,7 +22,7 @@
         },
         {
             "parameters": {
-                "filePath": "/Users/hubertgrzybowski/Desktop/TEST3/Content_Calendar.xlsx"
+                "filePath": "/Users/hubertgrzybowski/Desktop/TEST3/Content_Calendar_Feb_2026_v2.xlsx"
             },
             "name": "Read Excel File",
             "type": "n8n-nodes-base.readBinaryFile",

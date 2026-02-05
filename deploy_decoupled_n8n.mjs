@@ -7,6 +7,7 @@ const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNGFiMmU5Ni0zY2
 
 const SCRAPER_PATH = '/Users/hubertgrzybowski/Desktop/TEST3/workflow_scraper_ideas.json';
 const PRODUCER_PATH = '/Users/hubertgrzybowski/Desktop/TEST3/workflow_video_producer.json';
+const SALES_BOT_PATH = '/Users/hubertgrzybowski/Desktop/TEST3/sales_bot_workflow.json';
 
 async function deployWorkflow(filePath, name) {
     try {
@@ -48,6 +49,7 @@ async function deployWorkflow(filePath, name) {
 async function main() {
     await deployWorkflow(SCRAPER_PATH, "Scraper Workflow");
     await deployWorkflow(PRODUCER_PATH, "Producer Workflow");
+    await deployWorkflow(SALES_BOT_PATH, "Sales Bot Workflow");
 }
 
 main();
