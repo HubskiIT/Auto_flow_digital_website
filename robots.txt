@@ -1,3 +1,21 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /calendar
+Crawl-delay: 1
+
+# AI Bots - Allow crawling for better AI search visibility
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
 Sitemap: https://autoflowdigital.pl/sitemap.xml

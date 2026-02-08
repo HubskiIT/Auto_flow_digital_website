@@ -1,0 +1,15 @@
+Contact: mailto:kontakt@autoflowdigital.pl
+Expires: 2027-12-31T23:59:59Z
+Preferred-Languages: pl, en
+Canonical: https://autoflowdigital.pl/.well-known/security.txt
+
+# Security Policy
+
+If you discover a security vulnerability in AutoFlow Digital's website or services,
+please report it responsibly to the contact above.
+
+We appreciate your help in keeping our services secure.
+
+# Acknowledgments
+
+We thank all security researchers who responsibly disclose vulnerabilities to us.
