@@ -1,0 +1,443 @@
+{
+    "name": "Idea Producer v2 (+ Editing)",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "hours",
+                            "triggerAtHour": 12
+                        }
+                    ]
+                }
+            },
+            "name": "Check Hourly",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Content Ideas",
+                    "mode": "name"
+                },
+                "filtersUI": {
+                    "values": [
+                        {
+                            "lookupColumn": "Status",
+                            "lookupValue": "Approved"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Get Approved Ideas",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                220,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.perplexity.ai/chat/completions",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "model",
+                            "value": "sonar-reasoning-pro"
+                        },
+                        {
+                            "name": "messages",
+                            "value": "={{ [ { \"role\": \"system\", \"content\": \"You are a professional script writer who specializes in viral short-form content. Rewrite the following viral content into a NEW, unique script for an AI Avatar. Rules: 1) Keep it under 60 seconds when spoken. 2) Start with an IMPOSSIBLE-TO-SKIP hook (first 3 seconds). 3) Use simple, conversational language. 4) Include a clear CTA at the end.\" }, { \"role\": \"user\", \"content\": \"Original Summary: \" + $json.Summary + \"\\n\\nViral Score: \" + $json.Virality_Score + \"\\n\\nRewrite this in my unique style while keeping the core insight. Make it punchy and engaging.\" } ] }}"
+                        },
+                        {
+                            "name": "temperature",
+                            "value": "0.7"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Perplexity Rewrite",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                440,
+                0
+            ],
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "iREij1eKyVUY4zZI",
+                    "name": "Perplexity API"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "modelId": "eleven_multilingual_v2",
+                "text": "={{ $json.message.content }}",
+                "voiceId": "YOUR_CLONED_VOICE_ID",
+                "options": {
+                    "stability": 0.5,
+                    "similarity_boost": 0.75
+                }
+            },
+            "name": "ElevenLabs Voice",
+            "type": "n8n-nodes-base.elevenLabs",
+            "typeVersion": 1,
+            "position": [
+                660,
+                0
+            ],
+            "credentials": {
+                "elevenLabsApi": {
+                    "id": "elevenlabs_cred_id_placeholder",
+                    "name": "ElevenLabs Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.heygen.com/v2/video/generate",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "video_inputs",
+                            "value": "={{ [ { \"character\": { \"type\": \"avatar\", \"avatar_id\": \"YOUR_HEYGEN_AVATAR_ID\", \"avatar_style\": \"normal\" }, \"voice\": { \"type\": \"text\", \"input_text\": $('Claude Rewrite').item.json.message.content } } ] }}"
+                        },
+                        {
+                            "name": "test",
+                            "value": "false"
+                        },
+                        {
+                            "name": "caption",
+                            "value": "true"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "HeyGen Avatar",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                880,
+                0
+            ],
+            "notes": "Generates talking head with avatar + voice (Text Input)",
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "vZz0kFBQEpArPUrY",
+                    "name": "HeyGen API"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "amount": 5,
+                "unit": "minutes"
+            },
+            "name": "Wait for HeyGen",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1,
+            "position": [
+                1100,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "url": "={{ $json.data.video_url }}",
+                "options": {}
+            },
+            "name": "Download Video",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1320,
+                0
+            ],
+            "notes": "Download raw video from HeyGen"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.creatomate.com/v1/renders",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "template_id",
+                            "value": "YOUR_CREATOMATE_TEMPLATE_ID"
+                        },
+                        {
+                            "name": "modifications",
+                            "value": "={{ { \"Video-1\": $json.binary_data, \"Captions\": $('Claude Rewrite').item.json.message.content } }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Creatomate Captions",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1540,
+                0
+            ],
+            "notes": "Add dynamic captions + B-roll",
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "2HrUUtqWDfVwGqsf",
+                    "name": "Creatomate API"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "amount": 60,
+                "unit": "seconds"
+            },
+            "name": "Wait for Render",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1,
+            "position": [
+                1760,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "// Crop to 9:16 using FFmpeg (simulated - actual FFmpeg would use Execute Command)\nconst videoUrl = $json.url;\nconst croppedUrl = videoUrl; // In real workflow, run FFmpeg via Execute Command\n\n// Metadata\nreturn {\n  json: {\n    final_video_url: croppedUrl,\n    aspect_ratio: \"9:16\",\n    platform_ready: true,\n    original_link: $('Get Approved Ideas').item.json.Original_Link\n  }\n};"
+            },
+            "name": "FFmpeg Crop 9:16",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1980,
+                0
+            ],
+            "notes": "Real implementation: use Execute Command with FFmpeg"
+        },
+        {
+            "parameters": {
+                "operation": "update",
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Content Ideas",
+                    "mode": "name"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Status": "Produced",
+                        "Video_Link": "={{ $json.final_video_url }}",
+                        "Aspect_Ratio": "9:16"
+                    },
+                    "matchingColumns": [
+                        "Original_Link"
+                    ],
+                    "schema": [
+                        {
+                            "id": "Status",
+                            "displayName": "Status",
+                            "type": "string"
+                        },
+                        {
+                            "id": "Video_Link",
+                            "displayName": "Video_Link",
+                            "type": "string"
+                        },
+                        {
+                            "id": "Aspect_Ratio",
+                            "displayName": "Aspect_Ratio",
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "name": "Update to Produced",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                2200,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "chatId": "YOUR_CHAT_ID",
+                "text": "✅ Video Produced!\\n\\nScript: {{ $('Claude Rewrite').item.json.message.content.slice(0, 100) }}...\\n\\nVideo: {{ $json.final_video_url }}",
+                "additionalFields": {}
+            },
+            "name": "Telegram Notify",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.2,
+            "position": [
+                2420,
+                0
+            ],
+            "credentials": {
+                "telegramApi": {
+                    "id": "telegram_cred_id_placeholder",
+                    "name": "Telegram Account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Check Hourly": {
+            "main": [
+                [
+                    {
+                        "node": "Get Approved Ideas",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Approved Ideas": {
+            "main": [
+                [
+                    {
+                        "node": "Claude Rewrite",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Claude Rewrite": {
+            "main": [
+                [
+                    {
+                        "node": "HeyGen Avatar",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HeyGen Avatar": {
+            "main": [
+                [
+                    {
+                        "node": "Wait for HeyGen",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait for HeyGen": {
+            "main": [
+                [
+                    {
+                        "node": "Download Video",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Download Video": {
+            "main": [
+                [
+                    {
+                        "node": "Creatomate Captions",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Creatomate Captions": {
+            "main": [
+                [
+                    {
+                        "node": "Wait for Render",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait for Render": {
+            "main": [
+                [
+                    {
+                        "node": "FFmpeg Crop 9:16",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "FFmpeg Crop 9:16": {
+            "main": [
+                [
+                    {
+                        "node": "Update to Produced",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update to Produced": {
+            "main": [
+                [
+                    {
+                        "node": "Telegram Notify",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}

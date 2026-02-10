@@ -1,0 +1,310 @@
+{
+    "name": "Social Scraper -> Idea Bank",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "weeks",
+                            "triggerAtHour": 10,
+                            "triggerAtMinute": 0
+                        }
+                    ]
+                }
+            },
+            "name": "Weekly Trigger",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Competitors",
+                    "mode": "name"
+                },
+                "options": {}
+            },
+            "name": "Get Competitors",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                220,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "options": {}
+            },
+            "name": "Split Handles",
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 3,
+            "position": [
+                440,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.apify.com/v2/acts/apify~instagram-scraper/runs?token=PASTE_APIFY_TOKEN_HERE",
+                "authentication": "none",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "usernames",
+                            "value": "={{ [$json.handle] }}"
+                        },
+                        {
+                            "name": "resultsLimit",
+                            "value": "5"
+                        },
+                        {
+                            "name": "resultsType",
+                            "value": "posts"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Run Apify Scraper",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                660,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "amount": 30,
+                "unit": "seconds"
+            },
+            "name": "Wait for Results",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1,
+            "position": [
+                880,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "url": "={{ $json.data.defaultDatasetId ? `https://api.apify.com/v2/datasets/${$json.data.defaultDatasetId}/items?token=PASTE_APIFY_TOKEN_HERE` : '' }}",
+                "authentication": "none",
+                "options": {}
+            },
+            "name": "Fetch Data",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1100,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "// Weighted Viral Score (Master Plan 2026)\nreturn input.all().map(item => {\n  const likes = item.json.likesCount || 0;\n  const comments = item.json.commentsCount || 0;\n  const shares = item.json.shareCount || 0;\n  const followers = item.json.ownerFollowersCount || 1000; // fallback\n  \n  // Weighted formula: shares > comments > likes\n  const viralityScore = ((likes + (comments * 2) + (shares * 3)) / followers) * 100;\n  \n  item.json.viralityScore = viralityScore.toFixed(2);\n  item.json.engagement_breakdown = {\n    likes,\n    comments,\n    shares,\n    followers\n  };\n  return item;\n}).sort((a, b) => b.json.viralityScore - a.json.viralityScore).slice(0, 1);"
+            },
+            "name": "Filter Viral",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1320,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Content Ideas",
+                    "mode": "name"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Original_Link": "={{ $json.url }}",
+                        "Virality_Score": "={{ $json.viralityScore }}",
+                        "Summary": "={{ $json.caption.slice(0, 200) }}...",
+                        "Status": "Idea",
+                        "Scraped_At": "={{ new Date().toISOString() }}"
+                    },
+                    "matchingColumns": [],
+                    "schema": [
+                        {
+                            "id": "Original_Link",
+                            "displayName": "Original_Link",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "Virality_Score",
+                            "displayName": "Virality_Score",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "Summary",
+                            "displayName": "Summary",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "Status",
+                            "displayName": "Status",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "Scraped_At",
+                            "displayName": "Scraped_At",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Save to Sheet",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                1540,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Weekly Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Get Competitors",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Competitors": {
+            "main": [
+                [
+                    {
+                        "node": "Split Handles",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Split Handles": {
+            "main": [
+                [
+                    {
+                        "node": "Run Apify Scraper",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Run Apify Scraper": {
+            "main": [
+                [
+                    {
+                        "node": "Wait for Results",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait for Results": {
+            "main": [
+                [
+                    {
+                        "node": "Fetch Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Fetch Data": {
+            "main": [
+                [
+                    {
+                        "node": "Filter Viral",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Filter Viral": {
+            "main": [
+                [
+                    {
+                        "node": "Save to Sheet",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}

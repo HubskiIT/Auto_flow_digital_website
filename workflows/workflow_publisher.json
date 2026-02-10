@@ -1,0 +1,269 @@
+{
+    "name": "Omni-Channel Publisher (Produced -> Socials)",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "hours",
+                            "triggerAtHour": 18
+                        }
+                    ]
+                }
+            },
+            "name": "Daily Publish Trigger",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Content Ideas",
+                    "mode": "name"
+                },
+                "filtersUI": {
+                    "values": [
+                        {
+                            "lookupColumn": "Status",
+                            "lookupValue": "Produced"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Get Produced Videos",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                220,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "options": {}
+            },
+            "name": "Split Videos",
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 3,
+            "position": [
+                440,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "model": "gpt-4o",
+                "prompt": {
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": "You are a specialized social media manager. Generate tailored captions for the following video content. \n\nOutput JSON format:\n{\n  \"instagram\": \"Caption with 30 hashtags...\",\n  \"linkedin\": \"Professional insight...\",\n  \"tiktok\": \"Short punchy caption...\",\n  \"youtube\": {\n     \"title\": \"SEO Title\",\n     \"description\": \"Detailed description...\"\n  }\n}"
+                        },
+                        {
+                            "role": "user",
+                            "content": "Video Summary: {{ $json.Summary }}\nOriginal Virality Score: {{ $json.Virality_Score }}"
+                        }
+                    ]
+                },
+                "jsonOutput": true
+            },
+            "name": "Generate Captions (LLM)",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1.4,
+            "position": [
+                660,
+                0
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "openai_cred_id_placeholder",
+                    "name": "OpenAI Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "update",
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Content Ideas",
+                    "mode": "name"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Status": "Published",
+                        "Published_At": "={{ new Date().toISOString() }}"
+                    },
+                    "matchingColumns": [
+                        "Original_Link"
+                    ],
+                    "schema": [
+                        {
+                            "id": "Status",
+                            "displayName": "Status",
+                            "type": "string"
+                        },
+                        {
+                            "id": "Published_At",
+                            "displayName": "Published_At",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Mark as Published",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                880,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "chatId": "YOUR_CHAT_ID",
+                "text": "🚀 *Ready to Publish!*\n\n*Video*: {{ $json.Video_Link }}\n\n📸 *Instagram*: \n{{ $json.instagram }}\n\nENC *LinkedIn*: \n{{ $json.linkedin }}\n\n📺 *YouTube*: \n{{ $json.youtube.title }}\n\n(Connect Social Nodes to Automate Posting)",
+                "additionalFields": {
+                    "parseMode": "Markdown"
+                }
+            },
+            "name": "Notify Telegram",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.2,
+            "position": [
+                1100,
+                0
+            ],
+            "credentials": {
+                "telegramApi": {
+                    "id": "telegram_cred_id_placeholder",
+                    "name": "Telegram Account"
+                }
+            }
+        },
+        {
+            "parameters": {},
+            "name": "Instagram Node (Placeholder)",
+            "type": "n8n-nodes-base.instagram",
+            "typeVersion": 1,
+            "position": [
+                1320,
+                -100
+            ],
+            "notes": "Configure Business Account Here"
+        },
+        {
+            "parameters": {},
+            "name": "LinkedIn Node (Placeholder)",
+            "type": "n8n-nodes-base.linkedIn",
+            "typeVersion": 1,
+            "position": [
+                1320,
+                100
+            ],
+            "notes": "Configure LinkedIn Profile Here"
+        },
+        {
+            "parameters": {},
+            "name": "YouTube Node (Placeholder)",
+            "type": "n8n-nodes-base.youTube",
+            "typeVersion": 1,
+            "position": [
+                1320,
+                300
+            ],
+            "notes": "Configure YouTube Channel Here"
+        }
+    ],
+    "connections": {
+        "Daily Publish Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Get Produced Videos",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Produced Videos": {
+            "main": [
+                [
+                    {
+                        "node": "Split Videos",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Split Videos": {
+            "main": [
+                [
+                    {
+                        "node": "Generate Captions (LLM)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Generate Captions (LLM": {
+            "main": [
+                [
+                    {
+                        "node": "Mark as Published",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Mark as Published": {
+            "main": [
+                [
+                    {
+                        "node": "Notify Telegram",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}

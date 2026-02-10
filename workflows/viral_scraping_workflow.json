@@ -1,0 +1,305 @@
+{
+    "name": "Viral Content Cloner (Apify + AI)",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "weeks",
+                            "triggerAtHour": 10,
+                            "triggerAtMinute": 0
+                        }
+                    ]
+                }
+            },
+            "name": "Weekly Trigger",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "documentId": {
+                    "__rl": true,
+                    "value": "PASTE_COMPETITORS_SHEET_ID_HERE",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Competitors",
+                    "mode": "name"
+                },
+                "options": {}
+            },
+            "name": "Get Competitors",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.1,
+            "position": [
+                220,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google_sheets_cred_id_placeholder",
+                    "name": "Google Sheets Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "options": {}
+            },
+            "name": "Split into Items",
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 3,
+            "position": [
+                440,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.apify.com/v2/acts/apify~instagram-scraper/runs?token=PASTE_APIFY_TOKEN_HERE",
+                "authentication": "none",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "usernames",
+                            "value": "={{ [$json.handle] }}"
+                        },
+                        {
+                            "name": "resultsLimit",
+                            "value": "5"
+                        },
+                        {
+                            "name": "resultsType",
+                            "value": "posts"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Start Apify Scraper",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                660,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "amount": 30,
+                "unit": "seconds"
+            },
+            "name": "Wait for Scrape",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1,
+            "position": [
+                880,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "url": "={{ $json.data.defaultDatasetId ? `https://api.apify.com/v2/datasets/${$json.data.defaultDatasetId}/items?token=PASTE_APIFY_TOKEN_HERE` : '' }}",
+                "authentication": "none",
+                "options": {}
+            },
+            "name": "Get Scraped Data",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1100,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "// Simple virality score calculation\nreturn input.all().map(item => {\n  const likes = item.json.likesCount || 0;\n  const comments = item.json.commentsCount || 0;\n  const views = item.json.playCount || 1;\n  const engagementRate = ((likes + comments) / views) * 100;\n  \n  item.json.viralityScore = engagementRate;\n  return item;\n}).sort((a, b) => b.json.viralityScore - a.json.viralityScore).slice(0, 1);"
+            },
+            "name": "Filter Top Viral",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1320,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "model": "gpt-4o",
+                "prompt": {
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": "You are a professional social media script writer. Your job is to analyze a viral transcript and rewrite it for a new brand, keeping the hook and structure but changing the specific words to avoid plagiarism."
+                        },
+                        {
+                            "role": "user",
+                            "content": "Original Transcript: {{ $json.caption }}\n\nRewrite this script for a Digital Automation Agency. Keep it under 60 seconds."
+                        }
+                    ]
+                }
+            },
+            "name": "AI Rewriter",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1.4,
+            "position": [
+                1540,
+                0
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "openai_cred_id_placeholder",
+                    "name": "OpenAI Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "modelId": "eleven_monolingual_v1",
+                "text": "={{ $json.message.content }}",
+                "voiceId": "ER4w4K4Z0X5b7d6a5d4d"
+            },
+            "name": "ElevenLabs TTS",
+            "type": "n8n-nodes-base.elevenLabs",
+            "typeVersion": 1,
+            "position": [
+                1760,
+                0
+            ],
+            "credentials": {
+                "elevenLabsApi": {
+                    "id": "elevenlabs_cred_id_placeholder",
+                    "name": "ElevenLabs Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "text": "={{ $json.message.content }}",
+                "voiceId": "ER4w4K4Z0X5b7d6a5d4d",
+                "avatarName": "Silas_Avatar_ID_Here"
+            },
+            "name": "HeyGen Video",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1980,
+                0
+            ],
+            "notes": "Placeholder for HeyGen API call"
+        }
+    ],
+    "connections": {
+        "Weekly Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Get Competitors",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Competitors": {
+            "main": [
+                [
+                    {
+                        "node": "Split into Items",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Split into Items": {
+            "main": [
+                [
+                    {
+                        "node": "Start Apify Scraper",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Start Apify Scraper": {
+            "main": [
+                [
+                    {
+                        "node": "Wait for Scrape",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait for Scrape": {
+            "main": [
+                [
+                    {
+                        "node": "Get Scraped Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Scraped Data": {
+            "main": [
+                [
+                    {
+                        "node": "Filter Top Viral",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Filter Top Viral": {
+            "main": [
+                [
+                    {
+                        "node": "AI Rewriter",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "AI Rewriter": {
+            "main": [
+                [
+                    {
+                        "node": "ElevenLabs TTS",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "ElevenLabs TTS": {
+            "main": [
+                [
+                    {
+                        "node": "HeyGen Video",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}

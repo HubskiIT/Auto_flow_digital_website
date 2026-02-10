@@ -1,0 +1,327 @@
+{
+    "name": "Social Media Auto-Poster",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "hours",
+                            "triggerAtHour": 9
+                        }
+                    ]
+                }
+            },
+            "name": "Schedule Trigger",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "filePath": "/Users/hubertgrzybowski/Desktop/TEST3/Content_Calendar_Feb_Advanced.xlsx"
+            },
+            "name": "Read Excel File",
+            "type": "n8n-nodes-base.readBinaryFile",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "fileFormat": "xlsx",
+                "options": {}
+            },
+            "name": "Parse Spreadsheet",
+            "type": "n8n-nodes-base.spreadsheetFile",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json[\"Date\"] }}",
+                            "operation": "equal",
+                            "value2": "={{ $today.format('yyyy-MM-dd') }}"
+                        }
+                    ]
+                }
+            },
+            "name": "Filter Today's Posts",
+            "type": "n8n-nodes-base.filter",
+            "typeVersion": 1,
+            "position": [
+                850,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "dataType": "string",
+                "value1": "={{ $json[\"Platform\"] }}",
+                "rules": {
+                    "rules": [
+                        {
+                            "value2": "Instagram",
+                            "output": 0
+                        },
+                        {
+                            "value2": "Facebook",
+                            "output": 1
+                        },
+                        {
+                            "value2": "LinkedIn",
+                            "output": 2
+                        },
+                        {
+                            "value2": "TikTok",
+                            "output": 3
+                        },
+                        {
+                            "value2": "YouTube",
+                            "output": 4
+                        }
+                    ]
+                }
+            },
+            "name": "Route by Platform",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 1,
+            "position": [
+                1450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "https://graph.facebook.com/v18.0/me/media",
+                "method": "POST",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "facebookGraphApi",
+                "options": {}
+            },
+            "name": "Post to Instagram",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1700,
+                100
+            ],
+            "notes": "Mock: Replace with actual API call"
+        },
+        {
+            "parameters": {
+                "url": "https://graph.facebook.com/v18.0/me/feed",
+                "method": "POST",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "facebookGraphApi",
+                "options": {}
+            },
+            "name": "Post to Facebook",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1700,
+                250
+            ],
+            "notes": "Mock: Replace with actual API call"
+        },
+        {
+            "parameters": {
+                "url": "https://api.linkedin.com/v2/ugcPosts",
+                "method": "POST",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "linkedinOAuth2",
+                "options": {}
+            },
+            "name": "Post to LinkedIn",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1700,
+                400
+            ],
+            "notes": "Mock: Replace with actual API call"
+        },
+        {
+            "parameters": {
+                "url": "https://open.tiktokapis.com/v2/video/publish/",
+                "method": "POST",
+                "authentication": "none",
+                "options": {}
+            },
+            "name": "Post to TikTok",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1700,
+                550
+            ],
+            "notes": "Mock: requires complex auth"
+        },
+        {
+            "parameters": {
+                "url": "https://www.googleapis.com/upload/youtube/v3/videos",
+                "method": "POST",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "googleApi",
+                "options": {}
+            },
+            "name": "Post to YouTube",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                1700,
+                700
+            ],
+            "notes": "Mock: Replace with actual API call"
+        },
+        {
+            "parameters": {
+                "model": "gpt-4",
+                "prompt": "Optimize this social media caption for engagement: {{ $json[\"Copy/Caption\"] }}",
+                "systemMessage": "You are a specialized social media copy editor."
+            },
+            "name": "AI Polish Caption",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1,
+            "position": [
+                1050,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "chatId": "@AutoFlowDigital_Channel",
+                "text": "\ud83d\ude80 *Approval Needed*\n\n**Topic:** {{ $json[\"Idea/Topic\"] }}\n**Platform:** {{ $json[\"Platform\"] }}\n\n**Caption:**\n{{ $json[\"Copy/Caption\"] }}\n\n**Visual:** {{ $json[\"Visual Directive\"] }}",
+                "additionalFields": {
+                    "parse_mode": "Markdown"
+                }
+            },
+            "name": "Telegram Approval",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1,
+            "position": [
+                1250,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Schedule Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Read Excel File",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Read Excel File": {
+            "main": [
+                [
+                    {
+                        "node": "Parse Spreadsheet",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Parse Spreadsheet": {
+            "main": [
+                [
+                    {
+                        "node": "Filter Today's Posts",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Route by Platform": {
+            "main": [
+                [
+                    {
+                        "node": "Post to Instagram",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Post to Facebook",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Post to LinkedIn",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Post to TikTok",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Post to YouTube",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Filter Today's Posts": {
+            "main": [
+                [
+                    {
+                        "node": "AI Polish Caption",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "AI Polish Caption": {
+            "main": [
+                [
+                    {
+                        "node": "Telegram Approval",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Telegram Approval": {
+            "main": [
+                [
+                    {
+                        "node": "Route by Platform",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
