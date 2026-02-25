@@ -1,33 +1,33 @@
 export interface BlogPost {
-    id: string;
-    slug: string;
-    title: string;
-    excerpt: string;
-    content: string;
-    author: string;
-    authorRole: string;
-    publishDate: string;
-    readTime: string;
-    tags: string[];
-    imageUrl: string;
-    imageAlt: string;
-    audioUrl?: string;
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  authorRole: string;
+  publishDate: string;
+  readTime: string;
+  tags: string[];
+  imageUrl: string;
+  imageAlt: string;
+  audioUrl?: string;
 }
 
 export const blogPosts: BlogPost[] = [
-    {
-        id: '1',
-        slug: 'chatbot-ai-recepcjonistka',
-        title: 'Jak działa Chatbot AI Recepcjonistka? Kompletny przewodnik dla firm',
-        excerpt: 'Nowoczesny Chatbot AI to w pełni kompetentna wirtualna recepcjonistka, która rezerwuje spotkania, kwalifikuje leady i obsługuje klientów 24/7 z empatią prawdziwego człowieka.',
-        author: 'AutoFlow Digital',
-        authorRole: 'Ekspert ds. Automatyzacji AI',
-        publishDate: '2026-02-25',
-        readTime: '8 min',
-        tags: ['AI', 'Chatbot', 'Automatyzacja', 'Obsługa klienta', 'No-Code'],
-        imageUrl: '/images/blog/chatbot-ai-recepcjonistka.png',
-        imageAlt: 'Chatbot AI Recepcjonistka - wirtualny asystent dla firm',
-        content: `
+  {
+    id: '1',
+    slug: 'chatbot-ai-recepcjonistka',
+    title: 'Jak działa Chatbot AI Recepcjonistka? Kompletny przewodnik dla firm',
+    excerpt: 'Nowoczesny Chatbot AI to w pełni kompetentna wirtualna recepcjonistka, która rezerwuje spotkania, kwalifikuje leady i obsługuje klientów 24/7 z empatią prawdziwego człowieka.',
+    author: 'AutoFlow Digital',
+    authorRole: 'Ekspert ds. Automatyzacji AI',
+    publishDate: '2026-02-25',
+    readTime: '8 min',
+    tags: ['AI', 'Chatbot', 'Automatyzacja', 'Obsługa klienta', 'No-Code'],
+    imageUrl: '/images/blog/hero-chatbot-ai.png',
+    imageAlt: 'Chatbot AI Recepcjonistka - wirtualny asystent dla firm',
+    content: `
 ### ⚙️ Czym dokładnie jest Chatbot AI nowej generacji?
 
 Przez lata klienci nienawidzili chatbotów. Wynikało to z faktu, że starsze systemy opierały się na sztywnych regułach i "drzewach decyzyjnych". Jeśli klient zadał pytanie poza przygotowanym skryptem, bot bezradnie prosił o przeformułowanie zdania. Dziś ten problem całkowicie znika.
@@ -92,5 +92,5 @@ Ponadto, w świecie cyfrowym klienci oczekują natychmiastowej reakcji. Zdolnoś
 - Dokumentacja techniczna: *OpenAI API (Asystenci i RAG), Make.com (Integracje CRM)*
 - Analiza trendów AutoFlow Digital: *Skrócenie czasu SLA w firmach MŚP dzięki automatyzacji*
 `,
-    },
+  },
 ];
