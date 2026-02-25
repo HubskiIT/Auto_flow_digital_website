@@ -350,6 +350,22 @@
     color: #334155 !important;
 }
 
+/* Fix for inline-styled text in Websites section */
+[data-theme="light"] #websites p[style*="color: #e2e8f0"],
+[data-theme="light"] #websites p[style*="color: #94a3b8"] {
+    color: #334155 !important;
+}
+
+[data-theme="light"] #websites .websites-cta-title[style*="color: white"],
+[data-theme="light"] #websites .websites-cta-title[style*="color: 'white'"] {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] #websites .websites-cta-desc[style*="color: #94a3b8"],
+[data-theme="light"] #websites .websites-cta-desc[style*="color: '#94a3b8'"] {
+    color: #334155 !important;
+}
+
 /* === Arsenal Section (Pills & Examples) === */
 [data-theme="light"] .time-saved-badge,
 [data-theme="light"] .examples-badge {
