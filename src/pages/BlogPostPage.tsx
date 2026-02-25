@@ -1,5 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import Navbar from '@/src/components/layout/Navbar';
 import Footer from '@/src/components/layout/Footer';
 import { SEO } from '@/src/components/common/SEO';
@@ -102,7 +103,7 @@ export const BlogPostPage: React.FC = () => {
                                 <AudioPlayer src={post.audioUrl} title={`Posłuchaj artykułu: ${post.title}`} />
                             </div>
                         )}
-                        <ReactMarkdown>{post.content}</ReactMarkdown>
+                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{post.content}</ReactMarkdown>
                     </div>
 
                     <div className="blog-post-cta">
