@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     publishDate: '2026-02-25',
     readTime: '8 min',
     tags: ['AI', 'Chatbot', 'Automatyzacja', 'Obsługa klienta', 'No-Code'],
-    imageUrl: '/images/blog/hero-chatbot-ai.png',
+    imageUrl: '',
     imageAlt: 'Chatbot AI Recepcjonistka - wirtualny asystent dla firm',
     content: `
 ### ⚙️ Czym dokładnie jest Chatbot AI nowej generacji?
