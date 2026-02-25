@@ -1,15 +1,21 @@
-import { useParams, Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import Navbar from '@/src/components/layout/Navbar';
 import Footer from '@/src/components/layout/Footer';
 import { SEO } from '@/src/components/common/SEO';
-import { Breadcrumbs } from '@/src/components/navigation/Breadcrumbs';
 import { RelatedPosts } from '@/src/components/blog/RelatedPosts';
 import { AudioPlayer } from '@/src/components/blog/AudioPlayer';
 import { blogPosts } from '@/src/data/blogPosts';
 
 export const BlogPostPage: React.FC = () => {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const scrollToSection = (e: React.MouseEvent, id: string) => {
+        e.preventDefault();
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     const { slug } = useParams<{ slug: string }>();
     const post = blogPosts.find(p => p.slug === slug);
 
@@ -47,7 +53,7 @@ export const BlogPostPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="bp-page">
             <SEO
                 title={post.title}
                 description={post.excerpt}
@@ -60,62 +66,93 @@ export const BlogPostPage: React.FC = () => {
                 {JSON.stringify(schema)}
             </script>
 
-            <Navbar scrolled={true} />
+            <Navbar scrolled={true} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} scrollToSection={scrollToSection} />
 
-            <article className="blog-post-page">
-                <header className="blog-post-header">
-                    <div className="container">
-                        <div className="blog-post-meta">
-                            <time dateTime={post.publishDate}>
-                                {publishDate.toLocaleDateString('pl-PL', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
-                            </time>
-                            <span className="separator">•</span>
-                            <span>{post.readTime}</span>
-                        </div>
-                        <h1 className="blog-post-title">{post.title}</h1>
-                        <p className="blog-post-excerpt">{post.excerpt}</p>
-                        <div className="blog-post-author">
-                            <div className="blog-post-author-info">
-                                <span className="blog-post-author-name">{post.author}</span>
-                                <span className="blog-post-author-role">{post.authorRole}</span>
-                            </div>
-                        </div>
-                        <div className="blog-post-tags">
-                            {post.tags.map(tag => (
-                                <span key={tag} className="blog-post-tag">{tag}</span>
-                            ))}
-                        </div>
-                    </div>
-                </header>
-
-                <div className="blog-post-image">
-                    <img src={post.imageUrl} alt={post.imageAlt} />
-                </div>
-
-                <div className="container">
-                    <div className="blog-post-content">
-                        {post.audioUrl && (
-                            <div className="mb-8">
-                                <AudioPlayer src={post.audioUrl} title={`Posłuchaj artykułu: ${post.title}`} />
-                            </div>
+            <main className="bp-main">
+                {/* ── HERO ── */}
+                <section className="bp-hero">
+                    {/* Breadcrumb */}
+                    <nav className="bp-breadcrumb">
+                        <Link to="/blog">BLOG</Link>
+                        {post.tags[0] && (
+                            <>
+                                <span className="bp-breadcrumb-sep"> / </span>
+                                <span>{post.tags[0].toUpperCase()}</span>
+                            </>
                         )}
-                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{post.content}</ReactMarkdown>
+                    </nav>
+
+                    {/* Title */}
+                    <h1 className="bp-title">{post.title}</h1>
+
+                    {/* Lead */}
+                    <p className="bp-lead">{post.excerpt}</p>
+
+                    {/* Author row */}
+                    <div className="bp-author-row">
+                        <div className="bp-author-avatar">
+                            {post.author.charAt(0)}
+                        </div>
+                        <div className="bp-author-info">
+                            <span className="bp-author-name">{post.author}</span>
+                            <span className="bp-author-meta">
+                                <time dateTime={post.publishDate}>
+                                    {publishDate.toLocaleDateString('pl-PL', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })}
+                                </time>
+                                <span className="bp-dot">·</span>
+                                <span>{post.readTime} czytania</span>
+                            </span>
+                        </div>
                     </div>
 
-                    <div className="blog-post-cta">
-                        <h3>Gotowy na Automatyzację Swojego Biznesu?</h3>
-                        <p>Umów się na bezpłatną konsultację i dowiedz się, jak AI może pomóc Twojej firmie.</p>
-                        <a href="/kalendarz" className="cta-button">Umów Bezpłatną Konsultację</a>
+                    {/* Tags */}
+                    <div className="bp-tags">
+                        {post.tags.map(tag => (
+                            <span key={tag} className="bp-tag">{tag}</span>
+                        ))}
                     </div>
+                </section>
+
+                {/* ── HERO IMAGE ── */}
+                {post.imageUrl && (
+                    <div className="bp-image-wrap">
+                        <img
+                            src={post.imageUrl}
+                            alt={post.imageAlt}
+                            className="bp-image"
+                        />
+                    </div>
+                )}
+
+                {/* ── CONTENT ── */}
+                <article className="bp-content">
+                    {post.audioUrl && (
+                        <div className="mb-8">
+                            <AudioPlayer src={post.audioUrl} title={`Posłuchaj: ${post.title}`} />
+                        </div>
+                    )}
+                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                        {post.content}
+                    </ReactMarkdown>
+                </article>
+
+                {/* ── CTA ── */}
+                <div className="bp-cta-box">
+                    <h3 className="bp-cta-title">Gotowy na automatyzację swojego biznesu?</h3>
+                    <p className="bp-cta-text">
+                        Umów się na bezpłatną konsultację i dowiedz się, jak AI może odciążyć Twój zespół.
+                    </p>
+                    <a href="/kalendarz" className="bp-cta-btn">
+                        Umów bezpłatną konsultację →
+                    </a>
                 </div>
-            </article>
+            </main>
 
             <RelatedPosts currentPost={post} allPosts={blogPosts} />
-
             <Footer />
         </div>
     );
