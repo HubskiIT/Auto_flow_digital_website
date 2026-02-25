@@ -17,10 +17,12 @@ import { AutomationsCatalogPage } from '@/src/pages/AutomationsCatalogPage';
 import { BlogListPage } from '@/src/pages/BlogListPage';
 import { BlogPostPage } from '@/src/pages/BlogPostPage';
 import { OurWorkPage } from '@/src/pages/OurWorkPage';
+import ScrollToTop from '@/src/components/common/ScrollToTop';
 
 function App() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <GoogleAnalytics />
             <Routes>
                 <Route path="/" element={<LandingPage />} />

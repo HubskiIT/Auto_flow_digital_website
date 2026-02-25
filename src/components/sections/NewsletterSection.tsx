@@ -1,23 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ScrollReveal from '../common/ScrollReveal';
-
-const BENEFITS = [
-    {
-        icon: '⚡',
-        title: 'Gotowe scenariusze AI',
-        desc: 'Automatyzacje gotowe do skopiowania – bez kodowania',
-    },
-    {
-        icon: '📊',
-        title: 'Case Studies co tydzień',
-        desc: 'Realne liczby: ROI, oszczędności, czas wdrożenia',
-    },
-    {
-        icon: '🔭',
-        title: 'Trendy przed rynkiem',
-        desc: 'Dowiedz się o nowych narzędziach, zanim zrobią to konkurenci',
-    },
-];
 
 const NewsletterSection = () => {
     const [email, setEmail] = useState('');
@@ -45,138 +28,82 @@ const NewsletterSection = () => {
     };
 
     return (
-        <section className="section relative overflow-hidden py-28">
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-dark-bg to-[#0a0a14] -z-20" />
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent -z-10" />
+        <section className="relative overflow-hidden py-5 border-y border-white/[0.06]">
+            {/* Subtle background */}
+            <div className="absolute inset-0 bg-[#0b0b15] -z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 via-transparent to-blue-600/5 -z-10" />
 
-            <div className="container relative z-10">
+            <div className="container">
                 <ScrollReveal>
-                    <div className="max-w-5xl mx-auto">
-                        {/* Pill label */}
-                        <div className="flex justify-center mb-10">
-                            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-                                Newsletter – Bezpłatny
+                    <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8">
+
+                        {/* Left: label + copy */}
+                        <div className="flex items-center gap-3 shrink-0">
+                            <span className="hidden md:flex w-8 h-8 rounded-lg bg-violet-500/15 border border-violet-500/20 items-center justify-center text-sm">
+                                📬
                             </span>
+                            <div>
+                                <p className="text-white font-semibold text-sm leading-tight">Newsletter AI</p>
+                                <p className="text-gray-500 text-xs">Trendy + scenariusze każdy tydzień</p>
+                            </div>
                         </div>
 
-                        {/* Grid: left text + right form */}
-                        <div className="grid md:grid-cols-2 gap-12 items-center">
+                        {/* Divider */}
+                        <div className="hidden md:block w-px h-8 bg-white/[0.07] shrink-0" />
 
-                            {/* LEFT – copy & benefits */}
-                            <div>
-                                <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-5">
-                                    Bądź o krok przed <span className="text-gradient">AI rewolucją</span>
-                                </h2>
-                                <p className="text-gray-400 text-lg leading-relaxed mb-10">
-                                    Cotygodniowa dawka wiedzy dla liderów, którzy chcą skalować biznes z pomocą sztucznej inteligencji.
-                                </p>
-
-                                {/* Benefits list */}
-                                <ul className="space-y-5">
-                                    {BENEFITS.map((b) => (
-                                        <li key={b.title} className="flex items-start gap-4">
-                                            <div className="shrink-0 w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center text-lg">
-                                                {b.icon}
-                                            </div>
-                                            <div>
-                                                <p className="text-white font-semibold text-sm">{b.title}</p>
-                                                <p className="text-gray-500 text-sm leading-relaxed">{b.desc}</p>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
+                        {/* Center: form */}
+                        {status === 'success' ? (
+                            <div className="flex-grow flex items-center gap-2 text-green-400 text-sm font-medium">
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Zapisano! Sprawdź skrzynkę e-mail.
                             </div>
-
-                            {/* RIGHT – form card */}
-                            <div className="relative">
-                                {/* Ambient glow */}
-                                <div className="absolute -inset-6 bg-violet-600/10 rounded-3xl blur-2xl" />
-
-                                <div className="relative bg-[#0d0d18] border border-white/[0.08] rounded-2xl p-8 md:p-10">
-                                    {status === 'success' ? (
-                                        <div className="text-center py-8">
-                                            <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-5">
-                                                <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                </svg>
-                                            </div>
-                                            <h3 className="text-xl font-bold text-white mb-2">Jesteś na liście! 🎉</h3>
-                                            <p className="text-gray-400 text-sm">Sprawdź skrzynkę i potwierdź subskrypcję.</p>
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <div className="mb-7">
-                                                <h3 className="text-2xl font-bold text-white mb-1">Dołącz do 2000+ liderów</h3>
-                                                <p className="text-gray-500 text-sm">Wypisz się w każdej chwili – zero spamu.</p>
-                                            </div>
-
-                                            <form onSubmit={handleSubmit} className="space-y-4">
-                                                <div className="relative">
-                                                    <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                                                        <svg className="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                        </svg>
-                                                    </div>
-                                                    <input
-                                                        type="email"
-                                                        required
-                                                        value={email}
-                                                        onChange={(e) => setEmail(e.target.value)}
-                                                        placeholder="Twój firmowy e-mail"
-                                                        className="w-full pl-11 pr-4 py-3.5 bg-white/[0.04] border border-white/[0.08] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/30 transition-all text-sm"
-                                                    />
-                                                </div>
-
-                                                <button
-                                                    type="submit"
-                                                    disabled={status === 'loading'}
-                                                    className="w-full py-3.5 bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-violet-900/40 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm"
-                                                >
-                                                    {status === 'loading' ? (
-                                                        <>
-                                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                            Zapisuję...
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            Zapisz się bezpłatnie
-                                                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                                            </svg>
-                                                        </>
-                                                    )}
-                                                </button>
-
-                                                {status === 'error' && (
-                                                    <p className="text-red-400 text-xs text-center">Coś poszło nie tak. Spróbuj ponownie.</p>
-                                                )}
-                                            </form>
-
-                                            {/* Subscriber avatars */}
-                                            <div className="flex items-center gap-3 mt-6 pt-6 border-t border-white/[0.05]">
-                                                <div className="flex -space-x-2">
-                                                    {['AF', 'MK', 'PW', 'JN'].map((initials, i) => (
-                                                        <div
-                                                            key={i}
-                                                            className="w-7 h-7 rounded-full border-2 border-[#0d0d18] flex items-center justify-center text-[10px] font-bold text-white"
-                                                            style={{
-                                                                background: `hsl(${i * 80 + 240}, 70%, 50%)`,
-                                                            }}
-                                                        >
-                                                            {initials}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                                <p className="text-gray-500 text-xs">
-                                                    Dołącz do <span className="text-gray-300 font-medium">2000+</span> subskrybentów
-                                                </p>
-                                            </div>
-                                        </>
-                                    )}
+                        ) : (
+                            <form onSubmit={handleSubmit} className="flex-grow flex gap-2 max-w-md">
+                                <div className="relative flex-grow">
+                                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                                        <svg className="h-3.5 w-3.5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <input
+                                        type="email"
+                                        required
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="Twój e-mail"
+                                        className="w-full pl-9 pr-3 py-2.5 text-sm bg-white/[0.04] border border-white/[0.08] rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-violet-500/40 focus:ring-1 focus:ring-violet-500/20 transition-all"
+                                    />
                                 </div>
-                            </div>
+                                <button
+                                    type="submit"
+                                    disabled={status === 'loading'}
+                                    className="shrink-0 px-4 py-2.5 text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-white rounded-lg transition-all disabled:opacity-60 flex items-center gap-1.5 whitespace-nowrap"
+                                >
+                                    {status === 'loading' ? (
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    ) : (
+                                        <>Zapisz się</>
+                                    )}
+                                </button>
+                                {status === 'error' && (
+                                    <p className="absolute bottom-0 left-0 text-red-400 text-xs mt-1">Błąd – spróbuj ponownie</p>
+                                )}
+                            </form>
+                        )}
+
+                        {/* Right: blog CTA */}
+                        <div className="shrink-0 ml-auto">
+                            <Link
+                                to="/blog"
+                                className="inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] rounded-lg transition-all group"
+                            >
+                                Baza wiedzy
+                                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </Link>
                         </div>
                     </div>
                 </ScrollReveal>
