@@ -12,7 +12,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { GoogleAnalytics } from '@/src/components/analytics/GoogleAnalytics';
 import { LandingPage } from '@/src/pages/LandingPage';
-import { CalendarPage } from '@/src/pages/CalendarPage';
 import { AutomationsCatalogPage } from '@/src/pages/AutomationsCatalogPage';
 import { BlogListPage } from '@/src/pages/BlogListPage';
 import { BlogPostPage } from '@/src/pages/BlogPostPage';
@@ -26,8 +25,6 @@ function App() {
             <GoogleAnalytics />
             <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/calendar/*" element={<CalendarPage />} />
-                <Route path="/kalendarz" element={<CalendarPage />} />
                 <Route path="/katalog-automatyzacji" element={<AutomationsCatalogPage />} />
                 <Route path="/nasze-projekty" element={<OurWorkPage />} />
                 <Route path="/blog" element={<BlogListPage />} />
