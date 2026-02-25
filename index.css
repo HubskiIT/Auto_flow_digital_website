@@ -43,6 +43,434 @@
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
+/* === Light Mode Overrides === */
+[data-theme="light"] {
+    --bg-dark: #f0f4f8;
+    --bg-card: rgba(255, 255, 255, 0.85);
+    --bg-card-hover: rgba(255, 255, 255, 0.95);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent-blue: #2563eb;
+    --accent-purple: #6366f1;
+    --accent-cyan: #0891b2;
+    --border-glass: rgba(0, 0, 0, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    background-image: radial-gradient(circle at top left, rgba(8, 145, 178, 0.05) 0%, transparent 30%),
+        radial-gradient(circle at bottom right, rgba(99, 102, 241, 0.05) 0%, transparent 30%);
+}
+
+[data-theme="light"] .navbar.scrolled {
+    background: rgba(240, 244, 248, 0.92);
+    border-bottom: 1px solid var(--border-glass);
+}
+
+[data-theme="light"] .logo {
+    color: #0f172a;
+}
+
+[data-theme="light"] .mobile-menu {
+    background: rgba(240, 244, 248, 0.98);
+}
+
+[data-theme="light"] .mobile-nav-link {
+    color: #0f172a;
+}
+
+[data-theme="light"] .hero::before {
+    background: radial-gradient(circle, rgba(8, 145, 178, 0.12) 0%, transparent 70%);
+}
+
+[data-theme="light"] .hero h1,
+[data-theme="light"] .section-headline {
+    color: #0f172a;
+}
+
+[data-theme="light"] .comparison-item {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.95));
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+[data-theme="light"] .ticker-item {
+    color: rgba(15, 23, 42, 0.5);
+}
+
+/* === Comprehensive Light Mode Component Overrides === */
+
+/* === Cards (SolutionsSection) === */
+[data-theme="light"] .card {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] .card:hover {
+    background: rgba(255, 255, 255, 0.99) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .card h3 {
+    color: #0f172a !important;
+}
+
+/* Fix inline style col:white inside cards */
+[data-theme="light"] .card p[style*="color: white"],
+[data-theme="light"] .card div[style*="color: white"] {
+    color: #0f172a !important;
+}
+
+/* Green result badge text in light mode */
+[data-theme="light"] .card [style*="color: #86efac"] {
+    color: #166534 !important;
+}
+
+/* === Case Studies (CaseStudiesSection) === */
+[data-theme="light"] .case-card {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(148, 163, 184, 0.25) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .case-header {
+    background: rgba(241, 245, 249, 0.95) !important;
+    border-bottom-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+[data-theme="light"] .case-header h3 {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .case-tabs {
+    background: rgba(241, 245, 249, 0.8) !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+[data-theme="light"] .case-tab-btn {
+    color: #475569 !important;
+}
+
+[data-theme="light"] .case-tab-btn.active {
+    background: white !important;
+    color: #0f172a !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .case-column p {
+    color: #334155 !important;
+}
+
+[data-theme="light"] .case-list-item {
+    color: #334155 !important;
+}
+
+[data-theme="light"] .case-list-item strong {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .case-metric {
+    background: rgba(241, 245, 249, 0.9) !important;
+    color: #0f172a !important;
+}
+
+/* === Logo Section gradient overlays === */
+/* The logo strip uses Tailwind from-slate-950 mask gradients */
+[data-theme="light"] .ticker-section {
+    background: rgba(241, 245, 249, 0.7) !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+/* Tailwind gradient mask - override via CSS variable injection */
+[data-theme="light"] [class*="from-slate-950"] {
+    --tw-gradient-from: #f0f4f8 !important;
+    --tw-gradient-from-position: 0% !important;
+}
+
+[data-theme="light"] [class*="to-transparent"] {
+    --tw-gradient-to: transparent !important;
+}
+
+/* === FAQ Accordion (accordion-* classes in index.css) === */
+[data-theme="light"] .accordion-header {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .accordion-item {
+    border-bottom-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+[data-theme="light"] .accordion-content {
+    color: #475569 !important;
+}
+
+/* === FAQ via <details> (FAQSchema) === */
+[data-theme="light"] details summary {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] details {
+    border-bottom-color: rgba(148, 163, 184, 0.3) !important;
+    color: #475569 !important;
+}
+
+[data-theme="light"] .faq-question {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .faq-answer {
+    color: #475569 !important;
+}
+
+[data-theme="light"] .faq-item {
+    color: #0f172a !important;
+}
+
+/* === CTA Block (dark card at bottom of landing page) === */
+/* Keep it intentionally dark for contrast so it stands out */
+/* No override — dark CTA on light page looks intentional */
+
+/* === Contact Section === */
+[data-theme="light"] .contact-wrapper {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(148, 163, 184, 0.25) !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .contact-info h2 {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .contact-info p {
+    color: #475569 !important;
+}
+
+/* Form inputs */
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group textarea,
+[data-theme="light"] .form-group select {
+    background: rgba(241, 245, 249, 0.9) !important;
+    color: #0f172a !important;
+    border-color: rgba(148, 163, 184, 0.5) !important;
+}
+
+[data-theme="light"] .form-group input::placeholder,
+[data-theme="light"] .form-group textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* === Section backgrounds — prevent accidentally dark sections === */
+[data-theme="light"] .hero {
+    background: transparent;
+}
+
+/* === Hero Secondary Link === */
+[data-theme="light"] .hero .btn-cta.secondary {
+    background: rgba(241, 245, 249, 0.8) !important;
+    border-color: rgba(148, 163, 184, 0.4) !important;
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .hero .btn-cta.secondary:hover {
+    background: rgba(226, 232, 240, 0.9) !important;
+}
+
+/* === Websites Section === */
+[data-theme="light"] #websites {
+    background: transparent !important;
+}
+
+[data-theme="light"] #websites .web-step-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(148, 163, 184, 0.2);
+}
+
+[data-theme="light"] #websites .web-step-card h4,
+[data-theme="light"] #websites .web-step-header {
+    color: #0f172a;
+}
+
+[data-theme="light"] #websites .web-step-card p {
+    color: #475569 !important;
+}
+
+[data-theme="light"] #websites .card .code-window {
+    background: rgba(248, 250, 252, 0.9) !important;
+    border: 1px solid rgba(148, 163, 184, 0.2) !important;
+}
+
+[data-theme="light"] #websites .card .code-line .code-key {
+    color: #475569 !important;
+}
+
+[data-theme="light"] #websites .card .code-line .code-val {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .websites-cta-box {
+    background: rgba(248, 250, 252, 0.9) !important;
+    border-color: rgba(148, 163, 184, 0.25) !important;
+}
+
+[data-theme="light"] .websites-cta-title {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .websites-cta-desc {
+    color: #475569 !important;
+}
+
+/* === Micro-Audyt Section === */
+[data-theme="light"] #audit {
+    background: transparent !important;
+}
+
+[data-theme="light"] .audit-box {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] #audit h3,
+[data-theme="light"] #audit p {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] #audit span[style*="color: 'white'"],
+[data-theme="light"] #audit span[style*="color: white"] {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] #audit .audit-option-btn {
+    background: rgba(248, 250, 252, 0.9) !important;
+    border-color: rgba(148, 163, 184, 0.3) !important;
+    color: #0f172a !important;
+}
+
+[data-theme="light"] #audit .audit-option-btn:hover {
+    background: rgba(241, 245, 249, 1) !important;
+    border-color: rgba(148, 163, 184, 0.5) !important;
+}
+
+/* === Knowledge Section === */
+[data-theme="light"] #knowledge h2.text-white,
+[data-theme="light"] #knowledge h3.text-white {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] #knowledge .text-gray-400 {
+    color: #475569 !important;
+}
+
+[data-theme="light"] #knowledge .text-white.font-medium {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] #knowledge .bg-glass-gradient {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] #knowledge input {
+    background: rgba(248, 250, 252, 0.8) !important;
+    color: #0f172a !important;
+    border-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+[data-theme="light"] #knowledge input::placeholder {
+    color: #64748b !important;
+}
+
+[data-theme="light"] #knowledge button[type="submit"] {
+    color: #ffffff !important;
+    background: var(--accent-purple) !important;
+}
+
+/* === Footer === */
+[data-theme="light"] .site-footer {
+    background: transparent !important;
+    border-top-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+[data-theme="light"] .footer-brand h3,
+[data-theme="light"] .footer-col h4 {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .footer-brand p,
+[data-theme="light"] .footer-link,
+[data-theme="light"] .copyright {
+    color: #475569 !important;
+}
+
+[data-theme="light"] .footer-bottom {
+    border-top-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+/* === Theme Toggle Button === */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 99px;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+    color: var(--text-primary);
+}
+
+.theme-toggle-icon {
+    display: flex;
+    align-items: center;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.theme-toggle-icon.active {
+    opacity: 1;
+    color: var(--accent-cyan);
+}
+
+.theme-toggle-track {
+    width: 40px;
+    height: 22px;
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 99px;
+    position: relative;
+    transition: background 0.3s ease;
+    border: 1px solid var(--border-glass);
+}
+
+.theme-toggle-track.light {
+    background: rgba(8, 145, 178, 0.25);
+}
+
+.theme-toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    background: var(--text-secondary);
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s ease;
+}
+
+.theme-toggle-track.light .theme-toggle-thumb {
+    transform: translateX(18px);
+    background: var(--accent-cyan);
+}
+
 ::selection {
     background: rgba(34, 211, 238, 0.2);
     color: white;
@@ -1691,6 +2119,7 @@ ul {
 .mobile-nav-link:hover {
     color: var(--text-primary);
 }
+
 /* Portfolio Page & Case Study Cards */
 .portfolio-hero {
     padding-top: 140px;
@@ -1809,7 +2238,7 @@ ul {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.case-study-section + .case-study-section {
+.case-study-section+.case-study-section {
     margin-top: 20px;
 }
 
@@ -1867,4 +2296,174 @@ ul {
     color: #06b6d4;
     font-size: 0.85rem;
     font-weight: 600;
+}
+/* ====== FINAL LIGHT MODE OVERRIDES ====== */
+
+/* Chat Demo styling for light mode */
+[data-theme='light'] .logic-card {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #1a1a2e;
+}
+[data-theme='light'] .logic-card h4 {
+    color: #1a1a2e !important;
+}
+[data-theme='light'] .logic-card p {
+    color: #475569 !important;
+}
+[data-theme='light'] .logic-card.active {
+    border-color: #6366f1;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
+    background: #f8fafc;
+}
+[data-theme='light'] .phone-mockup {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+[data-theme='light'] .chat-screen {
+    background: #f8fafc;
+}
+[data-theme='light'] .chat-message.user {
+    background: #e2e8f0;
+    color: #1a1a2e;
+}
+[data-theme='light'] .chat-message.bot {
+    background: #6366f1;
+    color: #ffffff;
+}
+[data-theme='light'] .typing-indicator {
+    background: #e2e8f0;
+}
+[data-theme='light'] .typing-dot {
+    background: #64748b;
+}
+
+/* Websites Section styling for light mode */
+[data-theme='light'] #websites {
+    background: #f8fafc !important;
+}
+/* Address inline styles in WebsitesSection */
+[data-theme='light'] #websites p[style*="color: #e2e8f0"],
+[data-theme='light'] #websites p[style*="color: #94a3b8"] {
+    color: #475569 !important;
+}
+[data-theme='light'] #websites span[style*="color: #818cf8"] {
+    background: #eef2ff !important;
+    color: #4f46e5 !important;
+    border-color: #c7d2fe !important;
+}
+[data-theme='light'] .web-step-card {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+[data-theme='light'] .web-step-card h4 {
+    color: #1a1a2e !important;
+}
+[data-theme='light'] .web-step-card p {
+    color: #475569 !important;
+}
+[data-theme='light'] .websites-cta-box {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+}
+[data-theme='light'] .websites-cta-title {
+    color: #1a1a2e !important;
+}
+[data-theme='light'] .websites-cta-desc {
+    color: #475569 !important;
+}
+
+/* Fix text colors inside code windows */
+[data-theme='light'] .code-window .code-key {
+    color: #4f46e5 !important;
+}
+[data-theme='light'] .code-window .code-val {
+    color: #0d9488 !important;
+}
+[data-theme='light'] .code-window div[style*="color: #4ade80"] {
+    color: #16a34a !important;
+}
+
+/* === Blog / Knowledge Section Light Mode === */
+[data-theme="light"] #knowledge h2[class*="text-white"],
+[data-theme="light"] #knowledge h3[class*="text-white"],
+[data-theme="light"] #knowledge span[class*="text-white"] {
+    color: #0f172a !important;
+}
+[data-theme="light"] #knowledge p[class*="text-gray-400"] {
+    color: #475569 !important;
+}
+[data-theme="light"] #knowledge p[class*="text-gray-600"] {
+    color: #64748b !important;
+}
+[data-theme="light"] #knowledge .bg-glass-gradient {
+    background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(241,245,249,0.95)) !important;
+    border-color: rgba(148, 163, 184, 0.3) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] #knowledge .bg-dark-bg\/50 {
+    background-color: rgba(255,255,255,0.8) !important;
+    border-color: rgba(148, 163, 184, 0.3) !important;
+    color: #0f172a !important;
+}
+
+/* === Blog Cards === */
+[data-theme="light"] [class*="bg-[#0d0d14]"] {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    background-image: none !important;
+    border-color: rgba(148, 163, 184, 0.25) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+}
+[data-theme="light"] [class*="bg-[#0d0d14]"]:hover {
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15) !important;
+    border-color: rgba(99, 102, 241, 0.4) !important;
+}
+[data-theme="light"] [class*="text-white"] {
+    color: #0f172a !important;
+}
+[data-theme="light"] [class*="text-gray-500"] {
+    color: #475569 !important;
+}
+[data-theme="light"] [class*="from-[#0d0d14]"] {
+    --tw-gradient-from: rgba(255,255,255,0.9) var(--tw-gradient-from-position) !important;
+    --tw-gradient-to: rgba(255,255,255,0) var(--tw-gradient-to-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), rgba(255,255,255,0.7) var(--tw-gradient-via-position), var(--tw-gradient-to) !important;
+}
+[data-theme="light"] [class*="from-violet-500"] {
+    color: #fff !important; /* Keep avatar text white */
+}
+[data-theme="light"] [class*="bg-black\/60"] {
+    background-color: rgba(255,255,255,0.9) !important;
+    border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+
+/* === Fix extra shadows globally for Light Mode === */
+[data-theme="light"] .timeline-node {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+}
+[data-theme="light"] .timeline-content {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] .accordion-content {
+    box-shadow: none;
+}
+
+/* === Light Mode Hover Fixes === */
+[data-theme="light"] .comparison-item:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(241, 245, 249, 1));
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 10px 25px rgba(6, 182, 212, 0.15);
+}
+
+[data-theme="light"] .timeline-content:hover,
+[data-theme="light"] .timeline-row.left .timeline-content:hover {
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 10px 25px rgba(6, 182, 212, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .case-study-card:hover {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(6, 182, 212, 0.1);
 }

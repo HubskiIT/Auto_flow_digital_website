@@ -20,10 +20,12 @@ import Navbar from '@/src/components/layout/Navbar';
 import Footer from '@/src/components/layout/Footer';
 import ROICalculator from '@/src/components/tools/ROICalculator';
 import KnowledgeSection from '@/src/components/sections/KnowledgeSection';
+import { useTheme } from '@/src/hooks/useTheme';
 
 export const LandingPage: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     // Add scroll listener logic if needed, or pass props
     // Re-implementing scrollToSection logic
@@ -58,6 +60,8 @@ export const LandingPage: React.FC = () => {
                 mobileMenuOpen={mobileMenuOpen}
                 setMobileMenuOpen={setMobileMenuOpen}
                 scrollToSection={scrollToSection}
+                theme={theme}
+                toggleTheme={toggleTheme}
             />
 
             <HeroSection scrollToContact={(e) => scrollToSection(e, 'contact')} />

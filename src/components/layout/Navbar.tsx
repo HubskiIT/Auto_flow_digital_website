@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MenuIcon, XIcon } from '../common/Icons';
+import ThemeToggle from '../common/ThemeToggle';
 
 interface NavbarProps {
     scrolled: boolean;
-    mobileMenuOpen: boolean;
-    setMobileMenuOpen: (open: boolean) => void;
-    scrollToSection: (e: React.MouseEvent, id: string) => void;
+    mobileMenuOpen?: boolean;
+    setMobileMenuOpen?: (open: boolean) => void;
+    scrollToSection?: (e: React.MouseEvent, id: string) => void;
+    theme?: 'dark' | 'light';
+    toggleTheme?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenuOpen, scrollToSection }) => {
+const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen = false, setMobileMenuOpen = () => { }, scrollToSection = () => { }, theme = 'dark', toggleTheme = () => { } }) => {
     React.useEffect(() => {
         if (mobileMenuOpen) {
             document.body.style.overflow = 'hidden';
@@ -33,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
                     <a href="#reviews" className="nav-link" onClick={(e) => scrollToSection(e, 'reviews')}>Opinie</a>
                 </div>
                 <div className="flex items-center gap-4">
-
+                    <ThemeToggle theme={theme} onToggle={toggleTheme} />
                     <a href="#contact" className="btn-cta primary desktop-cta" onClick={(e) => scrollToSection(e, 'contact')}>Darmowa Konsultacja</a>
                 </div>
 
@@ -50,6 +53,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled, mobileMenuOpen, setMobileMenu
                     <a href="#cases" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'cases'); setMobileMenuOpen(false); }}>Branże</a>
                     <a href="#process" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'process'); setMobileMenuOpen(false); }}>Proces</a>
                     <a href="#reviews" className="mobile-nav-link" onClick={(e) => { scrollToSection(e, 'reviews'); setMobileMenuOpen(false); }}>Opinie</a>
+                    <div style={{ display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
+                        <ThemeToggle theme={theme} onToggle={toggleTheme} />
+                    </div>
                     <a href="#contact" className="btn-cta primary" onClick={(e) => { scrollToSection(e, 'contact'); setMobileMenuOpen(false); }}>Darmowa Konsultacja</a>
                 </div>
             )}

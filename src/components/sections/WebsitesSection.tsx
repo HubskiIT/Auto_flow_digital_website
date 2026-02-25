@@ -85,7 +85,7 @@ const WebsitesSection = () => {
                         </div>
                     </div>
 
-                    <div style={{
+                    <div className="websites-cta-box" style={{
                         marginTop: '80px',
                         padding: '40px',
                         background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6))',
@@ -97,8 +97,8 @@ const WebsitesSection = () => {
                     }}>
                         <div style={{ position: 'absolute', top: '-50%', left: '50%', transform: 'translateX(-50%)', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
 
-                        <h3 style={{ fontSize: '1.8rem', color: 'white', marginBottom: '16px' }}>Twoja strona może zarabiać na siebie</h3>
-                        <p style={{ color: '#94a3b8', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 32px' }}>
+                        <h3 className="websites-cta-title" style={{ fontSize: '1.8rem', color: 'white', marginBottom: '16px' }}>Twoja strona może zarabiać na siebie</h3>
+                        <p className="websites-cta-desc" style={{ color: '#94a3b8', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 32px' }}>
                             Nie pozwól, by Twoja wizytówka w sieci była tylko kosztem. Zmień odwiedzających w płacących klientów dzięki nowoczesnemu designowi i automatyzacji.
                         </p>
                         <a href="#contact" className="btn-cta primary" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}>

@@ -55,7 +55,7 @@ const AuditSection = () => {
                         <p className="section-description">Odpowiedz na 3 szybkie pytania i zobacz, ile godzin miesięcznie możesz odzyskać.</p>
                     </div>
 
-                    <div style={{
+                    <div className="audit-box" style={{
                         maxWidth: '600px',
                         margin: '0 auto',
                         background: 'rgba(255, 255, 255, 0.03)',
