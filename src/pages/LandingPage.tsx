@@ -21,16 +21,15 @@ import Footer from '@/src/components/layout/Footer';
 import ROICalculator from '@/src/components/tools/ROICalculator';
 import KnowledgeSection from '@/src/components/sections/KnowledgeSection';
 import { useTheme } from '@/src/hooks/useTheme';
+import StickyCTA from '@/src/components/common/StickyCTA';
 
 export const LandingPage: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { theme, toggleTheme } = useTheme();
 
-    // Add scroll listener logic if needed, or pass props
-    // Re-implementing scrollToSection logic
-    const scrollToSection = (e: React.MouseEvent, id: string) => {
-        e.preventDefault();
+    const scrollToSection = (e?: React.MouseEvent | React.TouchEvent, id: string = 'contact') => {
+        if (e && 'preventDefault' in e) e.preventDefault();
         const element = document.getElementById(id);
         if (element) {
             const offset = 90;
@@ -50,8 +49,8 @@ export const LandingPage: React.FC = () => {
             <DottedGlowBackground
                 gap={40}
                 radius={1}
-                color="rgba(255, 255, 255, 0.05)"
-                glowColor="rgba(6, 182, 212, 0.5)"
+                color={theme === 'light' ? "rgba(15, 23, 42, 0.08)" : "rgba(255, 255, 255, 0.05)"}
+                glowColor={theme === 'light' ? "rgba(37, 99, 235, 0.4)" : "rgba(6, 182, 212, 0.5)"}
                 speedScale={0.3}
             />
 
@@ -66,19 +65,15 @@ export const LandingPage: React.FC = () => {
 
             <HeroSection scrollToContact={(e) => scrollToSection(e, 'contact')} />
 
-            {/* <ROICalculator /> - Removed for simplified narrative */}
-
             <ProblemSection />
 
             <AuditSection />
 
-            {/* <section style={{ padding: '0 0 100px 0' }}><InfiniteTicker /></section> - Removed for simplified narrative */}
-
-            <section id="demo" className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
+            <section id="demo" className="section" style={{ background: theme === 'light' ? 'rgba(241, 245, 249, 0.5)' : 'rgba(255, 255, 255, 0.02)' }}>
                 <div className="container">
                     <ScrollReveal>
                         <span className="section-title">Zobacz to w akcji</span>
-                        <h2 className="section-headline">Jak to działa <span style={{ color: '#06b6d4' }}>naprawdę?</span></h2>
+                        <h2 className="section-headline">Jak to działa <span style={{ color: theme === 'light' ? 'var(--accent-blue)' : '#06b6d4' }}>naprawdę?</span></h2>
                         <ChatDemo />
                     </ScrollReveal>
                 </div>
@@ -94,9 +89,8 @@ export const LandingPage: React.FC = () => {
             <CaseStudiesSection />
             <KnowledgeSection />
 
-            {/* <FaqSection /> - Removed for simplified narrative */}
             <ContactSection />
-
+            <StickyCTA onClick={() => scrollToSection()} />
             <Footer />
         </>
     );
